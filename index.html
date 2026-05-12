@@ -256,6 +256,39 @@
       margin-top: 34px;
     }
 
+    .hero-gpt-note {
+      display: block;
+      margin-top: 22px;
+      padding: 16px 18px;
+      max-width: 690px;
+      border-radius: var(--radius);
+      color: rgba(237, 246, 255, 0.86);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+    }
+
+    .hero-gpt-note strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #fff;
+      font-size: 17px;
+    }
+
+    .hero-gpt-note p {
+      margin: 0;
+      color: rgba(237, 246, 255, 0.76);
+      line-height: 1.5;
+    }
+
+    .hero-gpt-note a {
+      color: #fff;
+      font-weight: 850;
+      text-decoration: underline;
+      text-decoration-color: rgba(255,22,52,0.9);
+      text-underline-offset: 4px;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -795,8 +828,8 @@
       <a href="#workflow" data-lang="en">Workflow</a>
       <a href="#features" data-lang="de">Funktionen</a>
       <a href="#features" data-lang="en">Features</a>
-      <a href="#custom-gpt" data-lang="de">Customized GPT</a>
-      <a href="#custom-gpt" data-lang="en">Custom GPT</a>
+      <a href="#custom-gpt" class="keep" data-lang="de">Customized GPT</a>
+      <a href="#custom-gpt" class="keep" data-lang="en">Custom GPT</a>
       <a href="#download" class="keep" data-lang="de">Download</a>
       <a href="#download" class="keep" data-lang="en">Download</a>
       <a href="#support" data-lang="de">Support</a>
@@ -827,7 +860,19 @@
             <a class="btn btn-primary" href="https://github.com/user-attachments/files/27657759/LaserCut_KonturFix_v2_0_0_english.zip" target="_blank" rel="noopener" data-lang="en">Download English Version</a>
             <a class="btn btn-green" href="#download" data-lang="de">Alle Downloads</a>
             <a class="btn btn-green" href="#download" data-lang="en">All downloads</a>
+            <a class="btn btn-ghost" href="#custom-gpt" data-lang="de">GPT Motiv erstellen</a>
+            <a class="btn btn-ghost" href="#custom-gpt" data-lang="en">Create GPT motif</a>
             <a class="btn btn-ghost" href="https://github.com/Stoni66/LaserCut_KonturFix" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <div class="hero-gpt-note">
+            <strong data-lang="de">Noch kein passendes Lasercutter-Motiv?</strong>
+            <strong data-lang="en">No suitable laser-cutter motif yet?</strong>
+            <p data-lang="de">
+              Erstelle passende Bilder mit dem <a href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener">Customized GPT „Laser cutter designs (Cutting)”</a>. Dafür wird mindestens ein kostenloser ChatGPT-Zugang benötigt.
+            </p>
+            <p data-lang="en">
+              Create suitable images with the <a href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener">Customized GPT “Laser cutter designs (Cutting)”</a>. At least a free ChatGPT account is required.
+            </p>
           </div>
         </div>
 
@@ -842,6 +887,36 @@
               <span class="process-scan" aria-hidden="true"></span>
             </div>
             <span class="process-divider" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gpt-section" id="custom-gpt">
+      <div class="wrap">
+        <div class="section-title">
+          <h2 data-lang="de">Motiv erstellen mit dem Customized GPT</h2>
+          <h2 data-lang="en">Create motifs with the Customized GPT</h2>
+          <p data-lang="de">Wenn du noch kein geeignetes Ausgangsbild hast, kannst du vor der Arbeit in LaserCut KonturFix ein passendes Motiv mit einem spezialisierten GPT erstellen.</p>
+          <p data-lang="en">If you do not yet have a suitable source image, you can create one with a specialized GPT before preparing it in LaserCut KonturFix.</p>
+        </div>
+        <div class="gpt-box">
+          <div>
+            <h3 data-lang="de">Laser cutter designs (Cutting)</h3>
+            <h3 data-lang="en">Laser cutter designs (Cutting)</h3>
+            <p data-lang="de">
+              Dieses Customized GPT hilft beim Erstellen passender Lasercutter-Motive. Dafür wird mindestens ein kostenloser ChatGPT-Zugang benötigt. Das erzeugte Bild kannst du anschließend in LaserCut KonturFix laden und als PNG, SVG oder DXF vorbereiten.
+            </p>
+            <p data-lang="en">
+              This Customized GPT helps create suitable laser-cutter motifs. At least a free ChatGPT account is required. You can then load the generated image into LaserCut KonturFix and prepare it as PNG, SVG, or DXF.
+            </p>
+          </div>
+          <div class="gpt-card">
+            <strong>ChatGPT Custom GPT</strong>
+            <p data-lang="de">Öffnet den spezialisierten GPT für Lasercutter-Designs.</p>
+            <p data-lang="en">Opens the specialized GPT for laser-cutter designs.</p>
+            <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="de">Customized GPT öffnen</a>
+            <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="en">Open Customized GPT</a>
           </div>
         </div>
       </div>
@@ -929,36 +1004,6 @@
             <p data-lang="de">Die Anwendung läuft als eigenständige EXE und nicht im Browser.</p>
             <p data-lang="en">The application runs as a standalone EXE, not in the browser.</p>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section gpt-section" id="custom-gpt">
-      <div class="wrap">
-        <div class="section-title">
-          <h2 data-lang="de">Motiv erstellen mit dem Customized GPT</h2>
-          <h2 data-lang="en">Create motifs with the Customized GPT</h2>
-          <p data-lang="de">Wenn du noch kein geeignetes Ausgangsbild hast, kannst du vor der Arbeit in LaserCut KonturFix ein passendes Motiv mit einem spezialisierten GPT erstellen.</p>
-          <p data-lang="en">If you do not yet have a suitable source image, you can create one with a specialized GPT before preparing it in LaserCut KonturFix.</p>
-        </div>
-        <div class="gpt-box">
-          <div>
-            <h3 data-lang="de">Passende Motive mit dem Customized GPT erstellen</h3>
-            <h3 data-lang="en">Create suitable motifs with the Customized GPT</h3>
-            <p data-lang="de">
-              Wenn du noch kein passendes Ausgangsbild hast, kannst du Motive mit dem spezialisierten Customized GPT „Laser cutter designs (Cutting)“ erstellen. Dafür wird mindestens ein kostenloser ChatGPT-Zugang benötigt. Danach kann das Bild in LaserCut KonturFix technisch für SVG/DXF vorbereitet werden.
-            </p>
-            <p data-lang="en">
-              If you do not yet have a suitable source image, you can create motifs with the specialized Customized GPT “Laser cutter designs (Cutting)”. At least a free ChatGPT account is required. The image can then be prepared technically for SVG/DXF in LaserCut KonturFix.
-            </p>
-          </div>
-          <div class="gpt-card">
-            <strong>Laser cutter designs (Cutting)</strong>
-            <p data-lang="de">Benötigt mindestens einen kostenlosen ChatGPT-Zugang.</p>
-            <p data-lang="en">Requires at least a free ChatGPT account.</p>
-            <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="de">Customized GPT öffnen</a>
-            <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="en">Open Customized GPT</a>
-          </div>
         </div>
       </div>
     </section>
