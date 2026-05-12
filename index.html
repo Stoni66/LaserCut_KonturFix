@@ -607,19 +607,24 @@
       gap: 18px;
     }
 
+    .gpt-section {
+      color: #101820;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255, 22, 52, 0.12), transparent 30%),
+        linear-gradient(180deg, #ffffff, #edf3f8);
+    }
+
     .gpt-box {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: clamp(18px, 4vw, 42px);
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.38fr);
+      gap: clamp(22px, 4vw, 48px);
       align-items: center;
-      padding: clamp(24px, 4vw, 34px);
+      padding: clamp(26px, 4vw, 42px);
       border-radius: var(--radius);
-      color: var(--ink);
-      background:
-        linear-gradient(135deg, rgba(255,22,52,0.16), rgba(30,126,198,0.1)),
-        rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.16);
-      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+      color: #101820;
+      background: #fff;
+      border: 1px solid rgba(16,24,32,0.1);
+      box-shadow: var(--shadow);
     }
 
     .gpt-box h3 {
@@ -630,12 +635,34 @@
     .gpt-box p {
       margin: 12px 0 0;
       max-width: 760px;
-      color: rgba(237, 246, 255, 0.72);
+      color: #506171;
       line-height: 1.6;
     }
 
-    .gpt-box .btn {
-      white-space: nowrap;
+    .gpt-card {
+      padding: 22px;
+      border-radius: var(--radius);
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0)),
+        #071018;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 18px 40px rgba(7, 16, 24, 0.28);
+    }
+
+    .gpt-card strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .gpt-card p {
+      color: rgba(237, 246, 255, 0.72);
+    }
+
+    .gpt-card .btn {
+      width: 100%;
+      margin-top: 18px;
     }
 
     .support-box {
@@ -768,6 +795,8 @@
       <a href="#workflow" data-lang="en">Workflow</a>
       <a href="#features" data-lang="de">Funktionen</a>
       <a href="#features" data-lang="en">Features</a>
+      <a href="#custom-gpt" data-lang="de">Customized GPT</a>
+      <a href="#custom-gpt" data-lang="en">Custom GPT</a>
       <a href="#download" class="keep" data-lang="de">Download</a>
       <a href="#download" class="keep" data-lang="en">Download</a>
       <a href="#support" data-lang="de">Support</a>
@@ -904,8 +933,14 @@
       </div>
     </section>
 
-    <section class="section dark">
+    <section class="section gpt-section" id="custom-gpt">
       <div class="wrap">
+        <div class="section-title">
+          <h2 data-lang="de">Motiv erstellen mit dem Customized GPT</h2>
+          <h2 data-lang="en">Create motifs with the Customized GPT</h2>
+          <p data-lang="de">Wenn du noch kein geeignetes Ausgangsbild hast, kannst du vor der Arbeit in LaserCut KonturFix ein passendes Motiv mit einem spezialisierten GPT erstellen.</p>
+          <p data-lang="en">If you do not yet have a suitable source image, you can create one with a specialized GPT before preparing it in LaserCut KonturFix.</p>
+        </div>
         <div class="gpt-box">
           <div>
             <h3 data-lang="de">Passende Motive mit dem Customized GPT erstellen</h3>
@@ -917,8 +952,13 @@
               If you do not yet have a suitable source image, you can create motifs with the specialized Customized GPT “Laser cutter designs (Cutting)”. At least a free ChatGPT account is required. The image can then be prepared technically for SVG/DXF in LaserCut KonturFix.
             </p>
           </div>
-          <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="de">Customized GPT öffnen</a>
-          <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="en">Open Customized GPT</a>
+          <div class="gpt-card">
+            <strong>Laser cutter designs (Cutting)</strong>
+            <p data-lang="de">Benötigt mindestens einen kostenlosen ChatGPT-Zugang.</p>
+            <p data-lang="en">Requires at least a free ChatGPT account.</p>
+            <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="de">Customized GPT öffnen</a>
+            <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="en">Open Customized GPT</a>
+          </div>
         </div>
       </div>
     </section>
