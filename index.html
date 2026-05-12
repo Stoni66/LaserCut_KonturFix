@@ -607,6 +607,37 @@
       gap: 18px;
     }
 
+    .gpt-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(18px, 4vw, 42px);
+      align-items: center;
+      padding: clamp(24px, 4vw, 34px);
+      border-radius: var(--radius);
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(255,22,52,0.16), rgba(30,126,198,0.1)),
+        rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .gpt-box h3 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 34px);
+    }
+
+    .gpt-box p {
+      margin: 12px 0 0;
+      max-width: 760px;
+      color: rgba(237, 246, 255, 0.72);
+      line-height: 1.6;
+    }
+
+    .gpt-box .btn {
+      white-space: nowrap;
+    }
+
     .support-box {
       padding: 28px;
     }
@@ -661,6 +692,7 @@
     @media (max-width: 1040px) {
       .hero-inner,
       .preview-band,
+      .gpt-box,
       .support-layout {
         grid-template-columns: 1fr;
       }
@@ -868,6 +900,25 @@
             <p data-lang="de">Die Anwendung läuft als eigenständige EXE und nicht im Browser.</p>
             <p data-lang="en">The application runs as a standalone EXE, not in the browser.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark">
+      <div class="wrap">
+        <div class="gpt-box">
+          <div>
+            <h3 data-lang="de">Passende Motive mit dem Customized GPT erstellen</h3>
+            <h3 data-lang="en">Create suitable motifs with the Customized GPT</h3>
+            <p data-lang="de">
+              Wenn du noch kein passendes Ausgangsbild hast, kannst du Motive mit dem spezialisierten Customized GPT „Laser cutter designs (Cutting)“ erstellen. Dafür wird mindestens ein kostenloser ChatGPT-Zugang benötigt. Danach kann das Bild in LaserCut KonturFix technisch für SVG/DXF vorbereitet werden.
+            </p>
+            <p data-lang="en">
+              If you do not yet have a suitable source image, you can create motifs with the specialized Customized GPT “Laser cutter designs (Cutting)”. At least a free ChatGPT account is required. The image can then be prepared technically for SVG/DXF in LaserCut KonturFix.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="de">Customized GPT öffnen</a>
+          <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="en">Open Customized GPT</a>
         </div>
       </div>
     </section>
