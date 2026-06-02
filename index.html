@@ -3,1135 +3,610 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="LaserCut KonturFix erstellt aus Bildern glatte, verbundene Konturen für Lasercutter-Workflows und exportiert PNG, SVG und DXF.">
-  <meta property="og:title" content="LaserCut KonturFix">
-  <meta property="og:description" content="Vom Bild zur glatten Lasercutter-Kontur. Windows-App für Stencil-, Papercut- und Silhouettenmotive.">
-  <meta property="og:type" content="website">
-  <title>LaserCut KonturFix | Image to SVG/DXF for Laser Cutting</title>
+  <title>LaserCut KonturFix v2.4.0</title>
+  <meta name="description" content="LaserCut KonturFix converts images into laser-ready SVG and DXF contour files.">
   <style>
     :root {
-      --bg: #071018;
-      --bg-2: #0b1824;
-      --panel: #102233;
-      --panel-soft: #142a3d;
-      --paper: #f4f7f9;
-      --ink: #edf6ff;
-      --muted: #a8b8c7;
-      --line: rgba(184, 212, 236, 0.18);
-      --red: #ff1634;
-      --red-soft: #b80f25;
-      --blue: #1e7ec6;
-      --green: #169274;
-      --gold: #ffcc66;
-      --radius: 8px;
-      --shadow: 0 26px 90px rgba(0, 0, 0, 0.38);
+      --bg: #060d15;
+      --panel: #0d1a2b;
+      --panel-2: #111f32;
+      --line: #284b70;
+      --text: #f4f8ff;
+      --muted: #a8bfd8;
+      --blue: #1f7be7;
+      --green: #148f74;
+      --red: #ff2535;
+      --gold: #f0c15f;
+      --shadow: 0 22px 80px rgba(0, 0, 0, .42);
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
       background:
-        radial-gradient(circle at 14% 6%, rgba(255, 22, 52, 0.18), transparent 28%),
-        radial-gradient(circle at 88% 20%, rgba(30, 126, 198, 0.18), transparent 30%),
-        linear-gradient(180deg, #071018 0%, #0a1621 44%, #f4f7f9 44%, #f4f7f9 100%);
-      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-      letter-spacing: 0;
+        radial-gradient(circle at 10% 10%, rgba(255, 31, 48, .14), transparent 28%),
+        radial-gradient(circle at 92% 8%, rgba(31, 123, 231, .12), transparent 24%),
+        linear-gradient(180deg, #06101a 0%, var(--bg) 58%, #03070c 100%);
+      color: var(--text);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .35;
+      background-image: radial-gradient(rgba(255, 37, 53, .55) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(90deg, #000, transparent 28%, transparent 72%, #000);
     }
 
-    img, svg {
-      display: block;
-      max-width: 100%;
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(6, 13, 21, .78);
+      border-bottom: 1px solid rgba(65, 105, 145, .45);
     }
 
     .nav {
-      position: fixed;
-      z-index: 30;
-      inset: 0 0 auto;
-      min-height: 70px;
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-      padding: 14px clamp(18px, 4vw, 58px);
-      color: #fff;
-      background: rgba(7, 16, 24, 0.84);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(18px);
     }
 
     .brand {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-      font-weight: 850;
+      flex-direction: column;
+      gap: 2px;
+      font-weight: 950;
+      letter-spacing: 0;
     }
 
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      position: relative;
-      flex: 0 0 auto;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.04)),
-        radial-gradient(circle at 50% 48%, rgba(255,22,52,0.8) 0 4px, transparent 5px),
-        #101923;
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 0 22px rgba(255, 22, 52, 0.28);
-    }
+    .brand span:first-child { font-size: 22px; }
+    .brand span:first-child strong { color: var(--red); }
+    .brand span:last-child { font-size: 12px; color: var(--muted); }
 
-    .brand-mark::before,
-    .brand-mark::after {
-      content: "";
-      position: absolute;
-      inset: 9px;
-      border: 2px solid rgba(255, 255, 255, 0.76);
-      border-radius: 50%;
-    }
-
-    .brand-mark::after {
-      inset: 6px 17px;
-      border-color: var(--red);
-      border-radius: 2px;
-    }
-
-    .brand span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .brand em {
-      color: var(--red);
-      font-style: normal;
-    }
-
-    .nav-links {
+    .lang {
       display: flex;
-      align-items: center;
-      gap: clamp(12px, 1.8vw, 24px);
-      color: rgba(237, 246, 255, 0.78);
-      font-size: 14px;
-      font-weight: 680;
+      gap: 7px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    .language-toggle {
-      display: inline-grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3px;
-      padding: 3px;
-      border: 1px solid rgba(255,255,255,0.22);
+    .lang button {
+      border: 1px solid var(--line);
+      background: #0b1726;
+      color: var(--muted);
       border-radius: 7px;
-      background: rgba(255,255,255,0.08);
-    }
-
-    .language-toggle button {
-      min-width: 42px;
-      min-height: 32px;
-      border: 0;
-      border-radius: 5px;
-      color: rgba(237, 246, 255, 0.75);
-      background: transparent;
-      font: inherit;
-      font-size: 13px;
+      padding: 9px 11px;
       font-weight: 850;
       cursor: pointer;
     }
 
-    .language-toggle button.active {
-      color: #071018;
-      background: #fff;
+    .lang button.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: #74afff;
     }
 
     .hero {
-      position: relative;
-      min-height: 92vh;
+      padding: 56px 0 28px;
+    }
+
+    .hero-grid {
       display: grid;
-      align-items: center;
-      padding: 120px clamp(18px, 4vw, 58px) 62px;
-      overflow: hidden;
-      background:
-        linear-gradient(90deg, rgba(7,16,24,0.98), rgba(7,16,24,0.82) 42%, rgba(7,16,24,0.42)),
-        url("assets/banner.png") center top / cover no-repeat;
-    }
-
-    .hero::before,
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: 88px;
-      width: min(28vw, 360px);
-      height: min(38vw, 470px);
-      opacity: 0.55;
-      background-image: radial-gradient(circle, rgba(255,22,52,0.72) 1.5px, transparent 2px);
-      background-size: 22px 22px;
-      mask-image: linear-gradient(90deg, #000, transparent);
-      pointer-events: none;
-    }
-
-    .hero::before {
-      left: 0;
-    }
-
-    .hero::after {
-      right: 0;
-      transform: scaleX(-1);
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      width: min(1240px, 100%);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
-      gap: clamp(28px, 5vw, 76px);
+      grid-template-columns: 1fr .78fr;
+      gap: 30px;
       align-items: center;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      color: rgba(237, 246, 255, 0.82);
+      gap: 8px;
+      color: #ffd9dd;
+      border: 1px solid rgba(255, 37, 53, .44);
+      background: rgba(255, 37, 53, .1);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-weight: 900;
       font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
     }
 
-    .eyebrow::before {
-      content: "";
-      width: 44px;
-      height: 2px;
-      background: var(--red);
-      box-shadow: 0 0 18px rgba(255, 22, 52, 0.9);
-    }
+    .dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; box-shadow: 0 0 20px var(--red); }
 
     h1 {
-      max-width: 750px;
-      margin: 0;
-      font-size: clamp(46px, 7.2vw, 104px);
-      line-height: 0.95;
+      margin: 22px 0 16px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: .96;
       letter-spacing: 0;
     }
 
-    h1 em,
-    .accent {
-      color: var(--red);
-      font-style: normal;
-    }
-
-    .hero-copy {
-      max-width: 690px;
-      margin: 24px 0 0;
-      color: rgba(237, 246, 255, 0.82);
-      font-size: clamp(17px, 2vw, 22px);
+    h1 strong { color: var(--red); }
+    .lead {
+      color: #d5e6f8;
+      font-size: clamp(18px, 2.1vw, 23px);
       line-height: 1.48;
+      max-width: 780px;
+      margin: 0 0 26px;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 34px;
-    }
-
-    .hero-gpt-note {
-      display: block;
-      margin-top: 22px;
-      padding: 16px 18px;
-      max-width: 690px;
-      border-radius: var(--radius);
-      color: rgba(237, 246, 255, 0.86);
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.16);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
-    }
-
-    .hero-gpt-note strong {
-      display: block;
-      margin-bottom: 6px;
-      color: #fff;
-      font-size: 17px;
-    }
-
-    .hero-gpt-note p {
-      margin: 0;
-      color: rgba(237, 246, 255, 0.76);
-      line-height: 1.5;
-    }
-
-    .hero-gpt-note a {
-      color: #fff;
-      font-weight: 850;
-      text-decoration: underline;
-      text-decoration-color: rgba(255,22,52,0.9);
-      text-underline-offset: 4px;
-    }
-
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      min-height: 48px;
-      padding: 13px 18px;
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 8px;
       border: 1px solid transparent;
-      border-radius: 7px;
-      font-weight: 850;
-      cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .btn-primary {
-      color: #fff;
-      background: linear-gradient(180deg, #2389d1, #176fb3);
-      box-shadow: 0 16px 36px rgba(23, 111, 179, 0.38);
-    }
-
-    .btn-green {
-      color: #fff;
-      background: linear-gradient(180deg, #1ba886, #14876d);
-      box-shadow: 0 16px 36px rgba(20, 135, 109, 0.34);
-    }
-
-    .btn-ghost {
-      color: #fff;
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.18);
-    }
-
-    .animation-card {
-      position: relative;
-      padding: clamp(16px, 2vw, 24px);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: var(--radius);
-      background: rgba(7, 16, 24, 0.72);
+      font-weight: 950;
       box-shadow: var(--shadow);
-      overflow: hidden;
     }
+    .btn.primary { background: var(--blue); color: #fff; border-color: #78b2ff; }
+    .btn.secondary { background: #101c2d; color: #e7f2ff; border-color: var(--line); }
+    .btn.green { background: var(--green); color: #fff; border-color: #34caa9; }
 
-    .animation-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, transparent 0 48%, rgba(255,22,52,0.55) 50%, transparent 52%),
-        radial-gradient(circle at 50% 50%, rgba(255,22,52,0.18), transparent 44%);
-      opacity: 0.44;
-      pointer-events: none;
-    }
-
-    .process-demo {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      border-radius: 7px;
-      background: #09131c;
-      border: 1px solid rgba(255,255,255,0.12);
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-    }
-
-    .process-panel {
-      position: relative;
-      min-width: 0;
-      display: grid;
-      place-items: center;
-      padding: 18px;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
-        #0b1722;
-    }
-
-    .process-panel::before {
-      content: attr(data-label);
-      position: absolute;
-      top: 14px;
-      left: 16px;
-      z-index: 3;
-      color: rgba(237, 246, 255, 0.78);
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .process-panel img {
-      width: min(92%, 360px);
-      aspect-ratio: 1;
-      object-fit: contain;
-      border-radius: 6px;
-      background: #f7f7f4;
-      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.32);
-    }
-
-    .process-panel.output img {
-      position: absolute;
-      width: min(92%, 360px);
-      aspect-ratio: 1;
-    }
-
-    .process-panel.output .contour-base {
-      z-index: 1;
-    }
-
-    .process-panel.output .contour-overlay {
-      z-index: 2;
-      clip-path: inset(0 100% 0 0);
-      animation: contourReveal 4.6s linear infinite;
-    }
-
-    .process-divider {
-      position: absolute;
-      z-index: 6;
-      top: 8%;
-      bottom: 8%;
-      left: 50%;
-      width: 2px;
-      background: rgba(255, 22, 52, 0.9);
-      box-shadow: 0 0 22px rgba(255, 22, 52, 0.85);
-      transform: translateX(-1px);
-    }
-
-    .process-scan {
-      position: absolute;
-      z-index: 7;
-      top: 12%;
-      bottom: 12%;
-      left: 4%;
-      width: 4px;
-      background: #ff1634;
-      box-shadow: 0 0 28px rgba(255, 22, 52, 0.9);
-      transform: translateX(-50%);
-      animation: scanMove 4.6s linear infinite;
-    }
-
-    .process-scan::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #ff1634;
-      box-shadow: 0 0 30px rgba(255, 22, 52, 1);
-      transform: translateX(-50%);
-    }
-
-    @keyframes scanMove {
-      0% { left: 4%; opacity: 0; }
-      8% { left: 4%; opacity: 1; }
-      78% { left: 96%; opacity: 1; }
-      86% { left: 96%; opacity: 0; }
-      100% { left: 4%; opacity: 0; }
-    }
-
-    @keyframes contourReveal {
-      0%, 8% { clip-path: inset(0 100% 0 0); opacity: 1; }
-      78% { clip-path: inset(0 0 0 0); opacity: 1; }
-      86%, 100% { clip-path: inset(0 100% 0 0); opacity: 0; }
-    }
-
-    .section {
-      padding: clamp(64px, 8vw, 116px) clamp(18px, 4vw, 58px);
-    }
-
-    .section.dark {
-      color: var(--ink);
-      background:
-        linear-gradient(180deg, #08131d, #0e1f2e);
-    }
-
-    .section.light {
-      color: #101820;
-      background: var(--paper);
-    }
-
-    .wrap {
-      width: min(1180px, 100%);
-      margin: 0 auto;
-    }
-
-    .section-title {
-      max-width: 780px;
-      margin-bottom: 34px;
-    }
-
-    .section-title h2 {
-      margin: 0;
-      color: inherit;
-      font-size: clamp(32px, 5vw, 58px);
-      line-height: 1.04;
-      letter-spacing: 0;
-    }
-
-    .section-title p {
-      margin: 16px 0 0;
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
       color: var(--muted);
-      font-size: 18px;
-      line-height: 1.6;
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .meta span { border: 1px solid var(--line); background: #0b1726; padding: 8px 10px; border-radius: 7px; }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(19, 34, 53, .92), rgba(8, 20, 34, .92));
+      border: 1px solid rgba(83, 124, 165, .55);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: var(--shadow);
     }
 
-    .dark .section-title p,
-    .dark .card p,
-    .dark .step p {
-      color: rgba(237, 246, 255, 0.72);
+    .hero-card img {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+      border: 1px solid #263e5a;
+      background: #091422;
     }
 
-    .grid {
+    section { padding: 42px 0; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    h2 { margin: 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: 0; }
+    .sub { color: var(--muted); max-width: 620px; line-height: 1.55; font-weight: 700; }
+
+    .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card,
-    .step,
-    .download-box,
-    .support-box {
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.06);
-      box-shadow: 0 16px 40px rgba(4, 10, 15, 0.12);
-    }
-
-    .light .card,
-    .light .step,
-    .light .download-box,
-    .light .support-box {
-      background: #fff;
-      border-color: rgba(16,24,32,0.1);
-    }
-
-    .card {
-      padding: 24px;
-    }
-
-    .card h3,
-    .step h3,
-    .download-box h3,
-    .support-box h3 {
-      margin: 0;
-      font-size: 20px;
-    }
-
-    .card p,
-    .step p,
-    .download-box p,
-    .support-box p {
-      margin: 12px 0 0;
-      color: #506171;
-      line-height: 1.55;
-    }
-
-    .workflow {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
-      counter-reset: steps;
+    }
+
+    .card, .video-card, .download-card {
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, .22);
+    }
+
+    .card h3 { margin: 0 0 10px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.55; font-weight: 650; }
+
+    .app-shot {
+      margin-top: 20px;
+      background: #081422;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .app-shot img { width: 100%; display: block; border-radius: 8px; }
+
+    .video-card {
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    .video {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    .download-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      border-color: rgba(240, 193, 95, .58);
+    }
+
+    .download-card h2 { color: #fff; }
+    .download-card p { margin: 8px 0 0; color: var(--muted); font-weight: 700; line-height: 1.55; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      counter-reset: step;
     }
 
     .step {
-      position: relative;
-      padding: 24px;
-      overflow: hidden;
-      counter-increment: steps;
+      background: #0b1726;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 16px;
+      min-height: 112px;
     }
 
     .step::before {
-      content: "0" counter(steps);
+      counter-increment: step;
+      content: counter(step);
       display: inline-flex;
+      width: 28px;
+      height: 28px;
       align-items: center;
       justify-content: center;
-      width: 42px;
-      height: 34px;
-      margin-bottom: 24px;
+      border-radius: 50%;
+      background: var(--blue);
       color: #fff;
-      border-radius: 6px;
-      background: linear-gradient(180deg, var(--red), var(--red-soft));
-      font-weight: 900;
-    }
-
-    .downloads {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .download-box {
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .download-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: auto;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 30px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: #51606d;
-      background: #eef3f7;
-      font-size: 13px;
-      font-weight: 750;
-    }
-
-    .preview-band {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: clamp(24px, 4vw, 56px);
-      align-items: center;
-    }
-
-    .app-preview {
-      overflow: hidden;
-      border-radius: var(--radius);
-      border: 1px solid rgba(16,24,32,0.12);
-      background: #09131c;
-      box-shadow: var(--shadow);
-    }
-
-    .app-preview img {
-      width: 100%;
-      height: auto;
-    }
-
-    .support-layout {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 18px;
-    }
-
-    .gpt-section {
-      color: #101820;
-      background:
-        radial-gradient(circle at 18% 20%, rgba(255, 22, 52, 0.12), transparent 30%),
-        linear-gradient(180deg, #ffffff, #edf3f8);
-    }
-
-    .gpt-box {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.38fr);
-      gap: clamp(22px, 4vw, 48px);
-      align-items: center;
-      padding: clamp(26px, 4vw, 42px);
-      border-radius: var(--radius);
-      color: #101820;
-      background: #fff;
-      border: 1px solid rgba(16,24,32,0.1);
-      box-shadow: var(--shadow);
-    }
-
-    .gpt-box h3 {
-      margin: 0;
-      font-size: clamp(24px, 3vw, 34px);
-    }
-
-    .gpt-box p {
-      margin: 12px 0 0;
-      max-width: 760px;
-      color: #506171;
-      line-height: 1.6;
-    }
-
-    .gpt-card {
-      padding: 22px;
-      border-radius: var(--radius);
-      color: #fff;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0)),
-        #071018;
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 18px 40px rgba(7, 16, 24, 0.28);
-    }
-
-    .gpt-card strong {
-      display: block;
+      font-weight: 950;
       margin-bottom: 12px;
-      font-size: 18px;
+    }
+    .step p { margin: 0; color: #d8eaff; font-weight: 800; line-height: 1.35; }
+
+    footer {
+      padding: 34px 0 46px;
+      color: var(--muted);
+      border-top: 1px solid rgba(65, 105, 145, .45);
+      text-align: center;
+      font-weight: 800;
     }
 
-    .gpt-card p {
-      color: rgba(237, 246, 255, 0.72);
+    .hidden { display: none !important; }
+
+    @media (max-width: 980px) {
+      .hero-grid, .download-card { grid-template-columns: 1fr; }
+      .cards, .steps { grid-template-columns: repeat(2, 1fr); }
+      .nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .lang { justify-content: flex-start; }
     }
 
-    .gpt-card .btn {
-      width: 100%;
-      margin-top: 18px;
-    }
-
-    .support-box {
-      padding: 28px;
-    }
-
-    .footer {
-      padding: 32px clamp(18px, 4vw, 58px);
-      color: rgba(237, 246, 255, 0.72);
-      background: #071018;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .footer .wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    [data-lang] {
-      display: none !important;
-    }
-
-    body.lang-de h1[data-lang="de"],
-    body.lang-de h2[data-lang="de"],
-    body.lang-de h3[data-lang="de"],
-    body.lang-de p[data-lang="de"],
-    body.lang-de section[data-lang="de"],
-    body.lang-en h1[data-lang="en"],
-    body.lang-en h2[data-lang="en"],
-    body.lang-en h3[data-lang="en"],
-    body.lang-en p[data-lang="en"],
-    body.lang-en section[data-lang="en"] {
-      display: block !important;
-    }
-
-    body.lang-de .eyebrow[data-lang="de"],
-    body.lang-en .eyebrow[data-lang="en"] {
-      display: inline-flex !important;
-    }
-
-    body.lang-de a[data-lang="de"]:not(.btn),
-    body.lang-en a[data-lang="en"]:not(.btn) {
-      display: inline !important;
-    }
-
-    body.lang-de .btn[data-lang="de"],
-    body.lang-en .btn[data-lang="en"] {
-      display: inline-flex !important;
-    }
-
-    @media (max-width: 1040px) {
-      .hero-inner,
-      .preview-band,
-      .gpt-box,
-      .support-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .grid,
-      .workflow,
-      .downloads {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .nav-links a:not(.keep) {
-        display: none;
-      }
-    }
-
-    @media (max-width: 680px) {
-      .nav {
-        align-items: flex-start;
-      }
-
-      .brand span {
-        max-width: 180px;
-      }
-
-      .hero {
-        padding-top: 112px;
-      }
-
-      .hero-inner,
-      .grid,
-      .workflow,
-      .downloads {
-        grid-template-columns: 1fr;
-      }
-
-      .animation-card {
-        padding: 10px;
-      }
-
-      .process-demo {
-        grid-template-columns: 1fr;
-        aspect-ratio: auto;
-      }
-
-      .process-panel {
-        min-height: 260px;
-      }
-
-      .process-panel.output img {
-        width: min(92%, 260px);
-      }
-
-      .process-divider,
-      .process-scan {
-        display: none;
-      }
-
-      .footer .wrap {
-        align-items: flex-start;
-        flex-direction: column;
-      }
+    @media (max-width: 620px) {
+      .cards, .steps { grid-template-columns: 1fr; }
+      .actions .btn { width: 100%; }
+      .wrap { width: min(100% - 24px, 1180px); }
+      header { position: static; }
     }
   </style>
 </head>
-<body class="lang-de">
-  <nav class="nav">
-    <a class="brand" href="#top" aria-label="LaserCut KonturFix">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span>LaserCut Kontur<em>Fix</em></span>
-    </a>
-    <div class="nav-links">
-      <a href="#workflow" data-lang="de">Workflow</a>
-      <a href="#workflow" data-lang="en">Workflow</a>
-      <a href="#features" data-lang="de">Funktionen</a>
-      <a href="#features" data-lang="en">Features</a>
-      <a href="#custom-gpt" class="keep" data-lang="de">Customized GPT</a>
-      <a href="#custom-gpt" class="keep" data-lang="en">Custom GPT</a>
-      <a href="#download" class="keep" data-lang="de">Download</a>
-      <a href="#download" class="keep" data-lang="en">Download</a>
-      <a href="#support" data-lang="de">Support</a>
-      <a href="#support" data-lang="en">Support</a>
-      <div class="language-toggle" aria-label="Language switch">
-        <button type="button" class="active" data-set-lang="de">DE</button>
-        <button type="button" data-set-lang="en">EN</button>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="LaserCut KonturFix">
+        <span>LaserCut Kontur<strong>Fix</strong></span>
+        <span data-i18n="tagline">Dein Design. Perfekt geschnitten.</span>
+      </a>
+      <div class="lang" aria-label="Language">
+        <button type="button" data-lang="de" class="active">DE</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="it">IT</button>
+        <button type="button" data-lang="fr">FR</button>
+        <button type="button" data-lang="es">ES</button>
       </div>
     </div>
-  </nav>
+  </header>
 
   <main id="top">
     <section class="hero">
-      <div class="hero-inner">
+      <div class="wrap hero-grid">
         <div>
-          <div class="eyebrow" data-lang="de">Bild zu SVG/DXF</div>
-          <div class="eyebrow" data-lang="en">Image to SVG/DXF</div>
-          <h1 data-lang="de">LaserCut Kontur<em>Fix</em></h1>
-          <h1 data-lang="en">LaserCut Kontur<em>Fix</em></h1>
-          <p class="hero-copy" data-lang="de">
-            Eine Windows-App für saubere Lasercutter-Konturen: Bild laden, Schwarz-Weiß-Maske erzeugen, getrennte Flächen verbinden und als PNG, SVG oder DXF ausgeben.
-          </p>
-          <p class="hero-copy" data-lang="en">
-            A Windows app for clean laser-cutter contours: load an image, create a black-and-white mask, connect separated islands, then export as PNG, SVG, or DXF.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://github.com/user-attachments/files/27609488/LaserCut_KonturFix_v2_0_0_german.zip" target="_blank" rel="noopener" data-lang="de">Deutsche Version herunterladen</a>
-            <a class="btn btn-primary" href="https://github.com/user-attachments/files/27657759/LaserCut_KonturFix_v2_0_0_english.zip" target="_blank" rel="noopener" data-lang="en">Download English Version</a>
-            <a class="btn btn-green" href="#download" data-lang="de">Alle Downloads</a>
-            <a class="btn btn-green" href="#download" data-lang="en">All downloads</a>
-            <a class="btn btn-ghost" href="#custom-gpt" data-lang="de">GPT Motiv erstellen</a>
-            <a class="btn btn-ghost" href="#custom-gpt" data-lang="en">Create GPT motif</a>
-            <a class="btn btn-ghost" href="https://github.com/Stoni66/LaserCut_KonturFix" target="_blank" rel="noopener">GitHub</a>
+          <div class="eyebrow"><span class="dot"></span><span data-i18n="eyebrow">Windows App fuer Laser-Cutter-Designs</span></div>
+          <h1 data-i18n-html="headline">Aus Bildern werden <strong>Laser-Konturen</strong>.</h1>
+          <p class="lead" data-i18n="lead">LaserCut KonturFix wandelt Bilder in saubere SVG- und DXF-Dateien fuer den Lasercutter um. Mit Maskenerstellung, Inselverbindung, Glaettung, Bruecken und direktem Export.</p>
+          <div class="actions">
+            <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2.4.0/LaserCut_KonturFix_v2_4_0_multilingual_Setup.exe">Download fuer Windows</a>
+            <a class="btn secondary" data-i18n="repo" href="https://github.com/Stoni66/LaserCut_KonturFix">GitHub Repository</a>
+            <a class="btn green" data-i18n="videoBtn" href="#video">Video ansehen</a>
           </div>
-          <div class="hero-gpt-note">
-            <strong data-lang="de">Noch kein passendes Lasercutter-Motiv?</strong>
-            <strong data-lang="en">No suitable laser-cutter motif yet?</strong>
-            <p data-lang="de">
-              Erstelle passende Bilder mit dem <a href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener">Customized GPT „Laser cutter designs (Cutting)”</a>. Dafür wird mindestens ein kostenloser ChatGPT-Zugang benötigt.
-            </p>
-            <p data-lang="en">
-              Create suitable images with the <a href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener">Customized GPT “Laser cutter designs (Cutting)”</a>. At least a free ChatGPT account is required.
-            </p>
+          <div class="meta">
+            <span>v2.4.0 multilingual</span>
+            <span data-i18n="trial">30 Tage Testphase</span>
+            <span>SVG / DXF / PNG</span>
+            <span data-i18n="windows">Windows Installer</span>
           </div>
         </div>
-
-        <div class="animation-card" aria-label="Contour extraction animation">
-          <div class="process-demo">
-            <div class="process-panel" data-label="PNG">
-              <img src="assets/wedding-source.png" alt="Original black and white wedding motif">
-            </div>
-            <div class="process-panel output" data-label="SVG / DXF">
-              <img class="contour-base" src="assets/wedding-source.png" alt="Black and white wedding motif prepared for tracing">
-              <img class="contour-overlay" src="assets/wedding-contours.png" alt="Wedding motif with red contours on all black areas">
-              <span class="process-scan" aria-hidden="true"></span>
-            </div>
-            <span class="process-divider" aria-hidden="true"></span>
-          </div>
+        <div class="hero-card">
+          <img src="assets/banner.png" alt="LaserCut KonturFix banner">
         </div>
       </div>
     </section>
 
-    <section class="section gpt-section" id="custom-gpt">
+    <section>
       <div class="wrap">
-        <div class="section-title">
-          <h2 data-lang="de">Motiv erstellen mit dem Customized GPT</h2>
-          <h2 data-lang="en">Create motifs with the Customized GPT</h2>
-          <p data-lang="de">Wenn du noch kein geeignetes Ausgangsbild hast, kannst du vor der Arbeit in LaserCut KonturFix ein passendes Motiv mit einem spezialisierten GPT erstellen.</p>
-          <p data-lang="en">If you do not yet have a suitable source image, you can create one with a specialized GPT before preparing it in LaserCut KonturFix.</p>
+        <div class="section-head">
+          <h2 data-i18n="featuresTitle">Was die Software kann</h2>
+          <p class="sub" data-i18n="featuresSub">Vom geladenen Bild bis zur exportierten Schnittdatei: alle wichtigen Schritte fuer laserfaehige Motive in einer kompakten Oberflaeche.</p>
         </div>
-        <div class="gpt-box">
-          <div>
-            <h3 data-lang="de">Laser cutter designs (Cutting)</h3>
-            <h3 data-lang="en">Laser cutter designs (Cutting)</h3>
-            <p data-lang="de">
-              Dieses Customized GPT hilft beim Erstellen passender Lasercutter-Motive. Dafür wird mindestens ein kostenloser ChatGPT-Zugang benötigt. Das erzeugte Bild kannst du anschließend in LaserCut KonturFix laden und als PNG, SVG oder DXF vorbereiten.
-            </p>
-            <p data-lang="en">
-              This Customized GPT helps create suitable laser-cutter motifs. At least a free ChatGPT account is required. You can then load the generated image into LaserCut KonturFix and prepare it as PNG, SVG, or DXF.
-            </p>
-          </div>
-          <div class="gpt-card">
-            <strong>ChatGPT Custom GPT</strong>
-            <p data-lang="de">Öffnet den spezialisierten GPT für Lasercutter-Designs.</p>
-            <p data-lang="en">Opens the specialized GPT for laser-cutter designs.</p>
-            <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="de">Customized GPT öffnen</a>
-            <a class="btn btn-primary" href="https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting" target="_blank" rel="noopener" data-lang="en">Open Customized GPT</a>
-          </div>
+        <div class="cards">
+          <article class="card">
+            <h3 data-i18n="f1Title">Maske erstellen</h3>
+            <p data-i18n="f1Text">Schwarz-Schwelle einstellen, Bild invertieren, stoerende Kleinteile entfernen und eine klare Schnittmaske erzeugen.</p>
+          </article>
+          <article class="card">
+            <h3 data-i18n="f2Title">Inseln verbinden</h3>
+            <p data-i18n="f2Text">Lose Bereiche koennen mit einstellbarer Brueckenbreite verbunden werden, damit das Motiv stabil geschnitten werden kann.</p>
+          </article>
+          <article class="card">
+            <h3 data-i18n="f3Title">SVG und DXF exportieren</h3>
+            <p data-i18n="f3Text">Speichert optimierte Konturen mit einstellbarer Motivbreite und SVG-Glaettung fuer typische Laser-Workflows.</p>
+          </article>
+        </div>
+        <div class="app-shot">
+          <img src="assets/LaserCutKonturFix_UI.png" alt="LaserCut KonturFix user interface">
         </div>
       </div>
     </section>
 
-    <section class="section light" id="workflow">
+    <section>
       <div class="wrap">
-        <div class="section-title">
-          <h2 data-lang="de">Vom Pixelbild zur glatten Schneidkontur.</h2>
-          <h2 data-lang="en">From raster image to smooth cutting contour.</h2>
-          <p data-lang="de">Der Ablauf ist auf praktische Lasercutter-Dateien ausgelegt: erst sauber maskieren, dann Inseln verbinden, anschließend als rote 0,2-mm-Schnittlinie exportieren.</p>
-          <p data-lang="en">The workflow is built for practical laser-cutter files: create a clean mask, connect islands, then export with red 0.2 mm cut lines.</p>
+        <div class="section-head">
+          <h2 data-i18n="workflowTitle">Ein klarer Workflow</h2>
+          <p class="sub" data-i18n="workflowSub">Die App fuehrt durch die wichtigsten Schritte, ohne dass man zwischen mehreren Programmen wechseln muss.</p>
         </div>
-        <div class="workflow">
-          <article class="step">
-            <h3 data-lang="de">Bild laden</h3>
-            <h3 data-lang="en">Load image</h3>
-            <p data-lang="de">PNG, JPG oder JPEG importieren und direkt im linken Fenster prüfen.</p>
-            <p data-lang="en">Import PNG, JPG, or JPEG and inspect it in the left preview.</p>
-          </article>
-          <article class="step">
-            <h3 data-lang="de">Maske erzeugen</h3>
-            <h3 data-lang="en">Create mask</h3>
-            <p data-lang="de">Schwelle, Glättung und kleine Details werden einstellbar vorbereitet.</p>
-            <p data-lang="en">Threshold, pre-smoothing, and small detail cleanup are adjustable.</p>
-          </article>
-          <article class="step">
-            <h3 data-lang="de">Inseln verbinden</h3>
-            <h3 data-lang="en">Connect islands</h3>
-            <p data-lang="de">Getrennte schwarze Bereiche können mit Brücken verbunden werden.</p>
-            <p data-lang="en">Separated black regions can be connected with structural bridges.</p>
-          </article>
-          <article class="step">
-            <h3 data-lang="de">Exportieren</h3>
-            <h3 data-lang="en">Export</h3>
-            <p data-lang="de">PNG, SVG und DXF für die Weiterverarbeitung speichern.</p>
-            <p data-lang="en">Save PNG, SVG, and DXF for further processing.</p>
-          </article>
+        <div class="steps">
+          <div class="step"><p data-i18n="s1">Bild oder Motiv laden</p></div>
+          <div class="step"><p data-i18n="s2">Maske berechnen</p></div>
+          <div class="step"><p data-i18n="s3">Glattung und Details anpassen</p></div>
+          <div class="step"><p data-i18n="s4">Inseln verbinden</p></div>
+          <div class="step"><p data-i18n="s5">SVG oder DXF speichern</p></div>
         </div>
       </div>
     </section>
 
-    <section class="section dark" id="features">
+    <section id="video">
       <div class="wrap">
-        <div class="section-title">
-          <h2 data-lang="de">Technisch ruhig, praktisch schnell.</h2>
-          <h2 data-lang="en">Technical, focused, and fast.</h2>
-          <p data-lang="de">LaserCut KonturFix bleibt bewusst kompakt: zwei Vorschaufenster, klare Regler und Exportformate, die in typischen Lasercutter-Workflows weiterverwendet werden können.</p>
-          <p data-lang="en">LaserCut KonturFix stays deliberately compact: two preview panes, clear controls, and export formats that fit common laser-cutting workflows.</p>
+        <div class="section-head">
+          <h2 data-i18n="videoTitle">Video</h2>
+          <p class="sub" data-i18n="videoSub">Ein kurzer Blick auf den Workflow und die Moeglichkeiten von LaserCut KonturFix.</p>
         </div>
-        <div class="grid">
-          <article class="card">
-            <h3 data-lang="de">Live-Vorschau</h3>
-            <h3 data-lang="en">Live preview</h3>
-            <p data-lang="de">Links das geladene Bild, rechts die vorberechnete SVG-Kontur.</p>
-            <p data-lang="en">Loaded image on the left, prepared SVG contour on the right.</p>
-          </article>
-          <article class="card">
-            <h3 data-lang="de">Automatische Neuberechnung</h3>
-            <h3 data-lang="en">Automatic recalculation</h3>
-            <p data-lang="de">Änderungen an Glättung und SVG-Parametern werden nach kurzer Pause neu berechnet.</p>
-            <p data-lang="en">Smoothing and SVG parameter changes recalculate after a short pause.</p>
-          </article>
-          <article class="card">
-            <h3 data-lang="de">Saubere Schnittlinie</h3>
-            <h3 data-lang="en">Clean cut line</h3>
-            <p data-lang="de">SVG-Dateien werden mit roten Konturen und 0,2 mm Linienbreite gespeichert.</p>
-            <p data-lang="en">SVG files are saved with red contours and 0.2 mm line width.</p>
-          </article>
-          <article class="card">
-            <h3 data-lang="de">DXF-Ausgabe</h3>
-            <h3 data-lang="en">DXF export</h3>
-            <p data-lang="de">Zusätzlich zum SVG kann das Ergebnis als DXF gespeichert werden.</p>
-            <p data-lang="en">In addition to SVG, the result can be saved as DXF.</p>
-          </article>
-          <article class="card">
-            <h3 data-lang="de">Tooltips</h3>
-            <h3 data-lang="en">Tooltips</h3>
-            <p data-lang="de">Schaltflächen, Eingaben und Regler erklären sich nach kurzem Verweilen mit der Maus.</p>
-            <p data-lang="en">Buttons, inputs, and sliders explain themselves after hovering briefly.</p>
-          </article>
-          <article class="card">
-            <h3 data-lang="de">Windows-App</h3>
-            <h3 data-lang="en">Windows app</h3>
-            <p data-lang="de">Die Anwendung läuft als eigenständige EXE und nicht im Browser.</p>
-            <p data-lang="en">The application runs as a standalone EXE, not in the browser.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section light">
-      <div class="wrap preview-band">
-        <div class="app-preview">
-          <img src="assets/app-preview.png" alt="LaserCut KonturFix app preview">
-        </div>
-        <div class="section-title">
-          <h2 data-lang="de">Gemacht für Stencil-, Papercut- und Silhouettenmotive.</h2>
-          <h2 data-lang="en">Built for stencil, papercut, and silhouette designs.</h2>
-          <p data-lang="de">Die App konzentriert sich auf genau den Bereich, der vor dem Schneiden oft Zeit kostet: getrennte schwarze Flächen erkennen, mit Brücken verbinden und die Kontur so glätten, dass sie nicht wie ein Pixelbild wirkt.</p>
-          <p data-lang="en">The app focuses on the part that often takes time before cutting: detecting separated black areas, connecting them with bridges, and smoothing the contour so it does not look pixel-stepped.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#download" data-lang="de">Version wählen</a>
-            <a class="btn btn-primary" href="#download" data-lang="en">Choose version</a>
-            <a class="btn btn-ghost" style="color:#101820;border-color:rgba(16,24,32,0.16)" href="https://github.com/Stoni66/LaserCut_KonturFix" target="_blank" rel="noopener">Repository öffnen</a>
+        <div class="video-card">
+          <div class="video">
+            <iframe src="https://www.youtube.com/embed/63AHmWisB6I" title="LaserCut KonturFix YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section light" id="download">
-      <div class="wrap">
-        <div class="section-title">
-          <h2 data-lang="de">Download</h2>
-          <h2 data-lang="en">Download</h2>
-          <p data-lang="de">Beide Windows-Versionen liegen im GitHub-Release. Wähle einfach Deutsch oder Englisch.</p>
-          <p data-lang="en">Both Windows versions are available in the GitHub release. Choose German or English.</p>
+    <section>
+      <div class="wrap download-card">
+        <div>
+          <h2 data-i18n="downloadTitle">Direkt herunterladen</h2>
+          <p data-i18n="downloadText">Lade den Windows-Installer direkt aus dem GitHub-Repository herunter. Die Software enthaelt eine Testphase und kann anschliessend per Lizenz aktiviert werden.</p>
         </div>
-        <div class="downloads">
-          <article class="download-box">
-            <h3>LaserCut KonturFix v2.0.0 Deutsch</h3>
-            <p data-lang="de">Deutsche Oberfläche, deutsche Tooltips und deutscher Supportdialog.</p>
-            <p data-lang="en">German interface, German tooltips, and German support dialog.</p>
-            <div class="download-meta">
-              <span class="pill">Windows EXE</span>
-              <span class="pill">PNG</span>
-              <span class="pill">SVG</span>
-              <span class="pill">DXF</span>
-            </div>
-            <a class="btn btn-primary" href="https://github.com/user-attachments/files/27609488/LaserCut_KonturFix_v2_0_0_german.zip" target="_blank" rel="noopener" data-lang="de">Deutsch herunterladen</a>
-            <a class="btn btn-primary" href="https://github.com/user-attachments/files/27609488/LaserCut_KonturFix_v2_0_0_german.zip" target="_blank" rel="noopener" data-lang="en">Download German version</a>
-          </article>
-          <article class="download-box">
-            <h3>LaserCut KonturFix v2.0.0 English</h3>
-            <p data-lang="de">Englische Oberfläche für internationale Nutzer und GitHub-Besucher.</p>
-            <p data-lang="en">English interface for international users and GitHub visitors.</p>
-            <div class="download-meta">
-              <span class="pill">Windows EXE</span>
-              <span class="pill">PNG</span>
-              <span class="pill">SVG</span>
-              <span class="pill">DXF</span>
-            </div>
-            <a class="btn btn-primary" href="https://github.com/user-attachments/files/27657759/LaserCut_KonturFix_v2_0_0_english.zip" target="_blank" rel="noopener" data-lang="de">Englisch herunterladen</a>
-            <a class="btn btn-primary" href="https://github.com/user-attachments/files/27657759/LaserCut_KonturFix_v2_0_0_english.zip" target="_blank" rel="noopener" data-lang="en">Download English version</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section dark" id="support">
-      <div class="wrap">
-        <div class="section-title">
-          <h2 data-lang="de">Unterstützung und Support</h2>
-          <h2 data-lang="en">Support and project support</h2>
-          <p data-lang="de">Wenn dir LaserCut KonturFix hilft, kannst du die Weiterentwicklung unterstützen oder Feedback und Wünsche schicken.</p>
-          <p data-lang="en">If LaserCut KonturFix helps you, you can support further development or send feedback and feature requests.</p>
-        </div>
-        <div class="support-layout">
-          <article class="support-box">
-            <h3 data-lang="de">Projekt unterstützen</h3>
-            <h3 data-lang="en">Support the project</h3>
-            <p data-lang="de">Jede Unterstützung hilft dabei, die App weiter zu verbessern und neue Funktionen sauber umzusetzen.</p>
-            <p data-lang="en">Every contribution helps improve the app and add new features carefully.</p>
-            <div class="hero-actions">
-              <a class="btn btn-green" href="https://paypal.me/stoni66?country.x=AT&amp;locale.x=de_DE" target="_blank" rel="noopener" data-lang="de">Mit PayPal unterstützen</a>
-              <a class="btn btn-green" href="https://paypal.me/stoni66?country.x=AT&amp;locale.x=en_US" target="_blank" rel="noopener" data-lang="en">Support with PayPal</a>
-            </div>
-          </article>
-          <article class="support-box">
-            <h3 data-lang="de">Feedback, Fehler, Wünsche</h3>
-            <h3 data-lang="en">Feedback, issues, ideas</h3>
-            <p data-lang="de">Melde Probleme oder Verbesserungsvorschläge einfach per E-Mail.</p>
-            <p data-lang="en">Send issues or improvement ideas by email.</p>
-            <div class="hero-actions">
-              <a class="btn btn-ghost" href="mailto:reliefforgecnc.wishes@gmail.com" target="_blank" rel="noopener">E-Mail</a>
-            </div>
-          </article>
+        <div class="actions">
+          <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2.4.0/LaserCut_KonturFix_v2_4_0_multilingual_Setup.exe">Download fuer Windows</a>
+          <a class="btn secondary" data-i18n="release" href="https://github.com/Stoni66/LaserCut_KonturFix/releases">Releases</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer>
     <div class="wrap">
-      <div>LaserCut KonturFix · Designed by Oswald Steiner</div>
-      <div>
-        <a href="https://github.com/Stoni66/LaserCut_KonturFix" target="_blank" rel="noopener">GitHub Repository</a>
-      </div>
+      <span data-i18n="footer">Designed by Oswald Steiner. LaserCut KonturFix v2.4.0.</span>
     </div>
   </footer>
 
   <script>
-    const buttons = document.querySelectorAll("[data-set-lang]");
-    const setLang = (lang) => {
-      document.body.classList.toggle("lang-de", lang === "de");
-      document.body.classList.toggle("lang-en", lang === "en");
-      document.documentElement.lang = lang;
-      buttons.forEach((button) => {
-        button.classList.toggle("active", button.dataset.setLang === lang);
-      });
-      try {
-        localStorage.setItem("lasercut-konturfix-lang", lang);
-      } catch (_) {}
+    const translations = {
+      de: {
+        tagline: "Dein Design. Perfekt geschnitten.",
+        eyebrow: "Windows App fuer Laser-Cutter-Designs",
+        headline: "Aus Bildern werden <strong>Laser-Konturen</strong>.",
+        lead: "LaserCut KonturFix wandelt Bilder in saubere SVG- und DXF-Dateien fuer den Lasercutter um. Mit Maskenerstellung, Inselverbindung, Glaettung, Bruecken und direktem Export.",
+        download: "Download fuer Windows",
+        repo: "GitHub Repository",
+        videoBtn: "Video ansehen",
+        trial: "30 Tage Testphase",
+        windows: "Windows Installer",
+        featuresTitle: "Was die Software kann",
+        featuresSub: "Vom geladenen Bild bis zur exportierten Schnittdatei: alle wichtigen Schritte fuer laserfaehige Motive in einer kompakten Oberflaeche.",
+        f1Title: "Maske erstellen",
+        f1Text: "Schwarz-Schwelle einstellen, Bild invertieren, stoerende Kleinteile entfernen und eine klare Schnittmaske erzeugen.",
+        f2Title: "Inseln verbinden",
+        f2Text: "Lose Bereiche koennen mit einstellbarer Brueckenbreite verbunden werden, damit das Motiv stabil geschnitten werden kann.",
+        f3Title: "SVG und DXF exportieren",
+        f3Text: "Speichert optimierte Konturen mit einstellbarer Motivbreite und SVG-Glaettung fuer typische Laser-Workflows.",
+        workflowTitle: "Ein klarer Workflow",
+        workflowSub: "Die App fuehrt durch die wichtigsten Schritte, ohne dass man zwischen mehreren Programmen wechseln muss.",
+        s1: "Bild oder Motiv laden",
+        s2: "Maske berechnen",
+        s3: "Glaettung und Details anpassen",
+        s4: "Inseln verbinden",
+        s5: "SVG oder DXF speichern",
+        videoTitle: "Video",
+        videoSub: "Ein kurzer Blick auf den Workflow und die Moeglichkeiten von LaserCut KonturFix.",
+        downloadTitle: "Direkt herunterladen",
+        downloadText: "Lade den Windows-Installer direkt aus dem GitHub-Repository herunter. Die Software enthaelt eine Testphase und kann anschliessend per Lizenz aktiviert werden.",
+        release: "Releases",
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.4.0."
+      },
+      en: {
+        tagline: "Your design. Perfectly cut.",
+        eyebrow: "Windows app for laser cutter designs",
+        headline: "Turn images into <strong>laser contours</strong>.",
+        lead: "LaserCut KonturFix converts images into clean SVG and DXF files for laser cutters. It includes mask generation, island connection, smoothing, bridges, and direct export.",
+        download: "Download for Windows",
+        repo: "GitHub repository",
+        videoBtn: "Watch video",
+        trial: "30 day trial",
+        windows: "Windows installer",
+        featuresTitle: "What the software does",
+        featuresSub: "From loaded image to exported cutting file: the important steps for laser-ready motifs in one compact interface.",
+        f1Title: "Create masks",
+        f1Text: "Adjust black threshold, invert images, remove small unwanted details, and create a clear cutting mask.",
+        f2Title: "Connect islands",
+        f2Text: "Loose areas can be connected with adjustable bridge width so the motif remains stable after cutting.",
+        f3Title: "Export SVG and DXF",
+        f3Text: "Save optimized contours with adjustable motif width and SVG smoothing for typical laser workflows.",
+        workflowTitle: "A clear workflow",
+        workflowSub: "The app guides you through the key steps without switching between several tools.",
+        s1: "Load image or motif",
+        s2: "Calculate mask",
+        s3: "Adjust smoothing and details",
+        s4: "Connect islands",
+        s5: "Save SVG or DXF",
+        videoTitle: "Video",
+        videoSub: "A quick look at the workflow and possibilities of LaserCut KonturFix.",
+        downloadTitle: "Direct download",
+        downloadText: "Download the Windows installer directly from the GitHub repository. The software includes a trial period and can then be activated with a license.",
+        release: "Releases",
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.4.0."
+      },
+      it: {
+        tagline: "Il tuo design. Tagliato alla perfezione.",
+        eyebrow: "App Windows per design laser cutter",
+        headline: "Trasforma le immagini in <strong>contorni laser</strong>.",
+        lead: "LaserCut KonturFix converte immagini in file SVG e DXF puliti per laser cutter. Include maschere, collegamento delle isole, levigatura, ponti ed esportazione diretta.",
+        download: "Download per Windows",
+        repo: "Repository GitHub",
+        videoBtn: "Guarda il video",
+        trial: "Prova di 30 giorni",
+        windows: "Installer Windows",
+        featuresTitle: "Cosa fa il software",
+        featuresSub: "Dall'immagine caricata al file di taglio esportato: tutti i passaggi importanti per motivi pronti per il laser.",
+        f1Title: "Creare maschere",
+        f1Text: "Regola la soglia del nero, inverti l'immagine, rimuovi piccoli dettagli indesiderati e crea una maschera di taglio chiara.",
+        f2Title: "Collegare le isole",
+        f2Text: "Le aree separate possono essere collegate con ponti regolabili per mantenere stabile il motivo dopo il taglio.",
+        f3Title: "Esportare SVG e DXF",
+        f3Text: "Salva contorni ottimizzati con larghezza del motivo e levigatura SVG regolabili.",
+        workflowTitle: "Un flusso di lavoro chiaro",
+        workflowSub: "L'app guida nei passaggi principali senza dover cambiare programma.",
+        s1: "Caricare immagine o motivo",
+        s2: "Calcolare la maschera",
+        s3: "Regolare levigatura e dettagli",
+        s4: "Collegare le isole",
+        s5: "Salvare SVG o DXF",
+        videoTitle: "Video",
+        videoSub: "Una breve panoramica del flusso di lavoro e delle possibilita di LaserCut KonturFix.",
+        downloadTitle: "Download diretto",
+        downloadText: "Scarica l'installer Windows direttamente dal repository GitHub. Il software include una fase di prova e puo essere attivato con una licenza.",
+        release: "Release",
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.4.0."
+      },
+      fr: {
+        tagline: "Votre design. Coupe parfaite.",
+        eyebrow: "Application Windows pour designs laser",
+        headline: "Transformez vos images en <strong>contours laser</strong>.",
+        lead: "LaserCut KonturFix convertit les images en fichiers SVG et DXF propres pour les decoupeuses laser. Il inclut la creation de masque, la connexion des ilots, le lissage, les ponts et l'export direct.",
+        download: "Telecharger pour Windows",
+        repo: "Depot GitHub",
+        videoBtn: "Voir la video",
+        trial: "Essai de 30 jours",
+        windows: "Installateur Windows",
+        featuresTitle: "Ce que fait le logiciel",
+        featuresSub: "De l'image chargee au fichier de coupe exporte : les etapes importantes pour des motifs prets pour le laser.",
+        f1Title: "Creer des masques",
+        f1Text: "Reglez le seuil noir, inversez l'image, supprimez les petits details indesirables et creez un masque de coupe clair.",
+        f2Title: "Connecter les ilots",
+        f2Text: "Les zones separees peuvent etre connectees avec une largeur de pont reglable afin que le motif reste stable apres la coupe.",
+        f3Title: "Exporter SVG et DXF",
+        f3Text: "Enregistrez des contours optimises avec largeur du motif et lissage SVG reglables.",
+        workflowTitle: "Un flux de travail clair",
+        workflowSub: "L'application guide les etapes principales sans changer d'outil.",
+        s1: "Charger image ou motif",
+        s2: "Calculer le masque",
+        s3: "Ajuster lissage et details",
+        s4: "Connecter les ilots",
+        s5: "Enregistrer SVG ou DXF",
+        videoTitle: "Video",
+        videoSub: "Un apercu rapide du flux de travail et des possibilites de LaserCut KonturFix.",
+        downloadTitle: "Telechargement direct",
+        downloadText: "Telechargez l'installateur Windows directement depuis le depot GitHub. Le logiciel inclut une periode d'essai et peut ensuite etre active avec une licence.",
+        release: "Versions",
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.4.0."
+      },
+      es: {
+        tagline: "Tu diseno. Corte perfecto.",
+        eyebrow: "Aplicacion Windows para disenos laser",
+        headline: "Convierte imagenes en <strong>contornos laser</strong>.",
+        lead: "LaserCut KonturFix convierte imagenes en archivos SVG y DXF limpios para cortadoras laser. Incluye creacion de mascaras, conexion de islas, suavizado, puentes y exportacion directa.",
+        download: "Descargar para Windows",
+        repo: "Repositorio GitHub",
+        videoBtn: "Ver video",
+        trial: "Prueba de 30 dias",
+        windows: "Instalador Windows",
+        featuresTitle: "Que hace el software",
+        featuresSub: "Desde la imagen cargada hasta el archivo de corte exportado: los pasos importantes para motivos listos para laser.",
+        f1Title: "Crear mascaras",
+        f1Text: "Ajusta el umbral negro, invierte la imagen, elimina pequenos detalles no deseados y crea una mascara de corte clara.",
+        f2Title: "Conectar islas",
+        f2Text: "Las areas sueltas pueden conectarse con puentes de ancho ajustable para que el motivo sea estable despues del corte.",
+        f3Title: "Exportar SVG y DXF",
+        f3Text: "Guarda contornos optimizados con ancho de motivo y suavizado SVG ajustables.",
+        workflowTitle: "Un flujo de trabajo claro",
+        workflowSub: "La aplicacion guia los pasos principales sin cambiar entre varias herramientas.",
+        s1: "Cargar imagen o motivo",
+        s2: "Calcular mascara",
+        s3: "Ajustar suavizado y detalles",
+        s4: "Conectar islas",
+        s5: "Guardar SVG o DXF",
+        videoTitle: "Video",
+        videoSub: "Una mirada rapida al flujo de trabajo y las posibilidades de LaserCut KonturFix.",
+        downloadTitle: "Descarga directa",
+        downloadText: "Descarga el instalador de Windows directamente desde el repositorio GitHub. El software incluye un periodo de prueba y luego puede activarse con una licencia.",
+        release: "Versiones",
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.4.0."
+      }
     };
 
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => setLang(button.dataset.setLang));
-    });
+    const buttons = document.querySelectorAll("[data-lang]");
+    const html = document.documentElement;
 
-    try {
-      const saved = localStorage.getItem("lasercut-konturfix-lang");
-      if (saved === "de" || saved === "en") {
-        setLang(saved);
-      }
-    } catch (_) {}
+    function setLanguage(lang) {
+      const selected = translations[lang] || translations.de;
+      html.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        const key = node.getAttribute("data-i18n");
+        node.textContent = selected[key] || translations.de[key] || "";
+      });
+      document.querySelectorAll("[data-i18n-html]").forEach((node) => {
+        const key = node.getAttribute("data-i18n-html");
+        node.innerHTML = selected[key] || translations.de[key] || "";
+      });
+      buttons.forEach((button) => button.classList.toggle("active", button.dataset.lang === lang));
+      localStorage.setItem("laserCutKonturFixLang", lang);
+    }
+
+    buttons.forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
+    setLanguage(localStorage.getItem("laserCutKonturFixLang") || "de");
   </script>
 </body>
 </html>
