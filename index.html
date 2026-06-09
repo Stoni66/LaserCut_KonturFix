@@ -167,6 +167,28 @@
     }
     .meta span { border: 1px solid var(--line); background: #0b1726; padding: 8px 10px; border-radius: 7px; }
 
+    .download-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .download-badges a {
+      display: inline-flex;
+      min-height: 24px;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 8px 26px rgba(0, 0, 0, .22);
+    }
+
+    .download-badges img {
+      display: block;
+      height: 24px;
+      max-width: 100%;
+    }
+
     .hero-card {
       background: linear-gradient(180deg, rgba(19, 34, 53, .92), rgba(8, 20, 34, .92));
       border: 1px solid rgba(83, 124, 165, .55);
@@ -334,6 +356,14 @@
             <a class="btn secondary" data-i18n="repo" href="https://github.com/Stoni66/LaserCut_KonturFix">GitHub Repository</a>
             <a class="btn green" data-i18n="videoBtn" href="#video">Video ansehen</a>
           </div>
+          <div class="download-badges" aria-label="GitHub download counters">
+            <a href="https://github.com/Stoni66/LaserCut_KonturFix/releases/tag/v2_5_0">
+              <img alt="Downloads v2.5.0" src="https://img.shields.io/github/downloads/Stoni66/LaserCut_KonturFix/v2_5_0/total?label=Downloads%20v2.5.0&style=for-the-badge&color=1f7be7">
+            </a>
+            <a href="https://github.com/Stoni66/LaserCut_KonturFix/releases">
+              <img alt="Total downloads" src="https://img.shields.io/github/downloads/Stoni66/LaserCut_KonturFix/total?label=Total%20Downloads&style=for-the-badge&color=148f74">
+            </a>
+          </div>
           <div class="meta">
             <span>v2.5.0 multilingual</span>
             <span data-i18n="trial">30 Tage Testphase</span>
@@ -408,6 +438,14 @@
         <div>
           <h2 data-i18n="downloadTitle">Direkt herunterladen</h2>
           <p data-i18n="downloadText">Lade den Windows-Installer fuer v2.5.0 direkt aus dem GitHub-Repository herunter. Die Software enthaelt eine Testphase und kann anschliessend per Lizenz aktiviert werden.</p>
+          <div class="download-badges" aria-label="GitHub download counters">
+            <a href="https://github.com/Stoni66/LaserCut_KonturFix/releases/tag/v2_5_0">
+              <img alt="Downloads v2.5.0" src="https://img.shields.io/github/downloads/Stoni66/LaserCut_KonturFix/v2_5_0/total?label=Downloads%20v2.5.0&style=for-the-badge&color=1f7be7">
+            </a>
+            <a href="https://github.com/Stoni66/LaserCut_KonturFix/releases">
+              <img alt="Total downloads" src="https://img.shields.io/github/downloads/Stoni66/LaserCut_KonturFix/total?label=Total%20Downloads&style=for-the-badge&color=148f74">
+            </a>
+          </div>
         </div>
         <div class="actions">
           <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
