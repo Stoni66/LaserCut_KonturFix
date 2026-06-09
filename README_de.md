@@ -1,123 +1,104 @@
-# LaserCut KonturFix v2.4.0
+# LaserCut KonturFix v2.5.0
 
-**LaserCut KonturFix** ist eine Desktop-Software für Windows, mit der Bilder und Motive für den Lasercutter vorbereitet werden können. Die App wandelt Bilddateien in optimierte Schnittkonturen um, verbindet bei Bedarf lose Inseln mit Brücken und exportiert die Ergebnisse als SVG oder DXF.
-
-Die Software richtet sich an Anwender, die aus Grafiken, Silhouetten oder KI-generierten Motiven schnell saubere Laserdateien erstellen möchten.
+**LaserCut KonturFix** ist eine Windows-Desktopsoftware zur Vorbereitung von Bildern und KI-Motiven fuer Lasercutter. Die App erzeugt aus Bilddateien saubere SVG- oder DXF-Daten, verbindet bei Bedarf lose Inseln mit Bruecken und kann seit v2.5.0 auch Gravurbilder mit schneidbarer Aussenkontur exportieren.
 
 ## Hauptfunktionen
 
-- Bilder laden und in eine lasergeeignete Maske umwandeln
-- SVG- und DXF-Dateien für Lasercutter exportieren
-- Schwarz-Schwelle zur Maskenerzeugung einstellen
-- Bild optional invertieren
-- Maske glätten
-- Kleine Störelemente entfernen
-- Inseln und lose Motivteile mit Brücken verbinden
-- Brückenbreite einstellen
-- SVG-Konturen glätten
+- PNG, JPG, BMP und TIFF laden
+- Schnittmotive aus Schwarz-Weiss-Masken erzeugen
+- Gravurmodus mit eingebettetem Rasterbild und roter Aussenkontur
+- SVG- und DXF-Export fuer Laserprogramme
+- optimiertes PNG als Kontrollbild speichern
+- Schwarz-Schwelle, Invertierung, Glaettung und Kleinteil-Entfernung
+- Inseln automatisch mit Bruecken verbinden
+- Brueckenbreite und maximale Brueckenlaenge einstellen
 - Motivbreite in Millimetern festlegen
-- Export als PNG, SVG und DXF
-- Mehrsprachige Benutzeroberfläche
-- Sprache wird gespeichert und beim nächsten Start automatisch wieder geladen
-- Lizenzsystem mit Installations-ID und Lizenzaktivierung
-- Installer mit Desktop-Verknüpfung und Deinstallationsprogramm
-- Direkter Button zum Erstellen neuer Motive über einen spezialisierten Custom GPT
+- SVG-Pfade glaetten und vereinfachen
+- mehrsprachige Oberflaeche in Deutsch, Englisch, Franzoesisch, Italienisch und Spanisch
+- Sprache wird gespeichert und beim naechsten Start wieder geladen
+- Lizenzsystem mit Installations-ID, Lizenzanforderung und Aktivierung
+- Installer mit Desktop-Verknuepfung und Deinstallation
+- integrierte Hilfe und Quickinfos fuer die wichtigsten Bedienelemente
 
-## Unterstützte Sprachen
+## Neu in v2.5.0
 
-- Deutsch
-- Englisch
-- Französisch
-- Italienisch
-- Spanisch
+- Neuer Ausgabemodus **Gravur + Aussenkontur**
+- Die Gravur bleibt als Rasterbild im SVG erhalten
+- Nur die groesste geschlossene Aussenkontur wird als rote Schnittlinie erzeugt
+- Zweiter GPT-Button fuer Gravurmotive mit schneidbarem Rahmen
+- Umbenannter GPT-Button **Schnittmotiv erstellen** fuer klassische Schneidmotive
+- Dynamische Quickinfos fuer Maske und SVG-Export je nach Ausgabemodus
+- Aktualisierte Hilfe direkt in der App
+- Nuitka-basierte Programmversion vorbereitet
 
-## Typischer Arbeitsablauf
+## Custom-GPT-Schaltflaechen
 
-1. Bild laden
-2. Schwarz-Schwelle einstellen
-3. Maske erzeugen
-4. Kleine Teile entfernen und Glättung anpassen
-5. Bei Bedarf Inseln mit Brücken verbinden
-6. SVG-Vorschau prüfen
-7. Motivbreite festlegen
-8. SVG oder DXF speichern
-9. Datei im Laserprogramm weiterverwenden
-
-## Exportformate
-
-### SVG
-
-Der SVG-Export erzeugt vektorbasierte Konturen für den Lasercutter. Die Schnittlinie wird als farbige Kontur ohne Füllung gespeichert.
-
-### DXF
-
-Der DXF-Export erzeugt eine einfache Konturdatei für Programme und Maschinen, die DXF bevorzugen.
-
-### PNG
-
-Der PNG-Export speichert die optimierte Maske als Bilddatei.
-
-## Lasercutter-Kompatibilität
-
-LaserCut KonturFix ist für typische Laser-Workflows ausgelegt und kann Dateien für Programme wie Trotec Ruby, LightBurn, RDWorks, Epilog-Software, xTool-Software oder andere SVG/DXF-fähige Laserprogramme vorbereiten.
-
-Je nach Maschine und Software können Farben, Linienstärken und Importregeln unterschiedlich interpretiert werden. Prüfen Sie daher vor dem finalen Schnitt immer die Einstellungen in Ihrer Lasersoftware.
-
-## Motiv erstellen
-
-Ab Version 2.4.0 enthält die App den Button **Motiv erstellen**. Dieser öffnet einen spezialisierten Custom GPT für Laser-Cutter-Designs:
+**Schnittmotiv erstellen** oeffnet einen spezialisierten GPT fuer laserschneidbare Cut-Out-Motive:
 
 https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting
 
-Dafür ist mindestens ein kostenloser ChatGPT-Account erforderlich. Der Benutzer muss im Browser angemeldet sein.
+**Gravurmotiv erstellen** oeffnet einen spezialisierten GPT fuer Gravurbilder mit schneidbarem Rahmen:
 
-## Lizenzierung
+https://chatgpt.com/g/g-6a220529bf9c81918c19433cccca2c31-create-engraving-motifs
 
-Die Software kann für eine Testphase genutzt werden. Zur dauerhaften Freischaltung wird eine Lizenz benötigt.
+Fuer beide Funktionen ist mindestens ein kostenloser ChatGPT-Account erforderlich. Der Benutzer muss im Browser angemeldet sein.
 
-Der Lizenzbereich zeigt:
+## Workflow fuer Schnittmotive
 
-- Name / Firma
-- E-Mail-Adresse
-- Installations-ID
-- Lizenzcode
+1. Bild laden oder Schnittmotiv per GPT erzeugen
+2. Ausgabemodus **Schnittmotiv** waehlen
+3. Schwarz-Schwelle, Glaettung und Kleinteile einstellen
+4. Maske erstellen
+5. Inseln bei Bedarf verbinden
+6. SVG-Vorschau pruefen
+7. Motivbreite festlegen
+8. SVG oder DXF speichern
 
-Die Installations-ID kann kopiert und für die Lizenzanforderung verwendet werden.
+## Workflow fuer Gravurmotive
+
+1. Gravurmotiv per GPT erzeugen oder eigenes Bild laden
+2. Ausgabemodus **Gravur + Aussenkontur** waehlen
+3. Maske erstellen
+4. Aussenkontur in der Vorschau pruefen
+5. SVG speichern
+6. Die SVG kann anschliessend in NestCheck geladen und genestet werden
+
+## Exportfarben
+
+- Rot: Schnittkontur
+- Blau: Gravur bzw. Gravurvorschau
+- Grau: ignorierte Hilfskonturen
+
+Im Gravurmodus enthaelt die SVG ein eingebettetes Rasterbild fuer die Gravur und eine rote Aussenkontur fuer den Schnitt.
+
+## Kompatibilitaet
+
+LaserCut KonturFix ist fuer typische Laser-Workflows ausgelegt, darunter Trotec Ruby, LightBurn, RDWorks, Epilog, xTool und andere Programme, die SVG oder DXF importieren koennen. Da Maschinen Farben und Linienstaerken unterschiedlich interpretieren koennen, sollte jede Datei vor dem Schnitt in der Zielsoftware kontrolliert werden.
 
 ## Installation
 
-Für Windows steht ein Installer zur Verfügung:
+Der Windows-Installer heisst:
 
 ```text
-LaserCut_KonturFix_v2_4_0_multilingual_Setup.exe
+LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe
 ```
 
-Nach der Installation kann die App über die Desktop-Verknüpfung oder das Startmenü geöffnet werden.
+Direktdownload:
 
-## Deinstallation
+https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe
 
-Die installierte Version enthält ein Deinstallationsprogramm. Die Software kann über die Windows-App-Verwaltung oder den Uninstaller im Installationsordner entfernt werden.
+Nach der Installation kann die App ueber Desktop-Verknuepfung oder Startmenue gestartet werden. Ein Deinstallationsprogramm ist enthalten.
+
+## Lizenzierung
+
+Die Software kann in einer Testphase genutzt werden. Fuer die dauerhafte Nutzung wird eine Lizenz benoetigt. Der Lizenzbereich enthaelt Name/Firma, E-Mail-Adresse, Installations-ID und Lizenzcode. Die Lizenzanforderung kann direkt aus der App vorbereitet werden.
 
 ## Systemvoraussetzungen
 
 - Windows 10 oder neuer
 - 64-Bit-System empfohlen
-- Für den Button "Motiv erstellen": Internetverbindung und ChatGPT-Account
-
-## Hinweise zur Nutzung
-
-- Vor dem Laserschnitt sollte jede exportierte Datei in der Zielsoftware geprüft werden.
-- Bei sehr komplexen Bildern kann es sinnvoll sein, Schwelle, Glättung und kleine Teile mehrfach anzupassen.
-- Für stabile Motive sollten lose Inseln mit ausreichend breiten Brücken verbunden werden.
-- Sehr feine Details können je nach Material, Laserleistung und Schnittbreite verloren gehen.
-
-## Version
-
-Aktuelle Version:
-
-```text
-LaserCut KonturFix v2.4.0 multilingual
-```
+- Internetverbindung fuer die GPT-Schaltflaechen
+- ChatGPT-Account fuer die Motiv-GPTs
 
 ## Autor
 
