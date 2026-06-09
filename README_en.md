@@ -1,123 +1,104 @@
-# LaserCut KonturFix v2.4.0
+# LaserCut KonturFix v2.5.0
 
-**LaserCut KonturFix** is a Windows desktop application for preparing images and designs for laser cutting. The software converts bitmap images into optimized cutting contours, can connect loose islands with bridges, and exports the result as SVG or DXF.
-
-It is designed for users who want to turn graphics, silhouettes, drawings, or AI-generated motifs into clean laser-ready files.
+**LaserCut KonturFix** is a Windows desktop application for preparing images and AI-generated motifs for laser cutters. It creates clean SVG or DXF output from bitmap files, can connect loose islands with bridges, and since v2.5.0 can also export engraving images with a separate cuttable outer contour.
 
 ## Main Features
 
-- Load images and convert them into laser-ready masks
-- Export SVG and DXF files for laser cutters
-- Adjust black threshold for mask generation
-- Optional image inversion
-- Smooth the generated mask
-- Remove small unwanted details
-- Connect islands and loose design parts with bridges
-- Adjust bridge width
-- Smooth SVG contours
+- Load PNG, JPG, BMP and TIFF images
+- Create cut motifs from black-and-white masks
+- Engraving mode with embedded raster image and red outer cut contour
+- SVG and DXF export for laser software
+- Save optimized PNG control images
+- Black threshold, inversion, smoothing and small-part cleanup
+- Automatically connect islands with bridges
+- Adjustable bridge width and maximum bridge length
 - Set final motif width in millimeters
-- Export as PNG, SVG, and DXF
-- Multilingual user interface
+- Smooth and simplify SVG paths
+- Multilingual interface in German, English, French, Italian and Spanish
 - Selected language is saved and restored on the next start
-- License system with installation ID and activation code
+- License workflow with installation ID, request and activation
 - Installer with desktop shortcut and uninstaller
-- Direct button for creating new laser motifs through a dedicated Custom GPT
+- Integrated help and tooltips for the most important controls
 
-## Supported Languages
+## New in v2.5.0
 
-- German
-- English
-- French
-- Italian
-- Spanish
+- New **Engraving + outer cut** output mode
+- Engraving remains embedded as a raster image inside the SVG
+- Only the largest closed outer contour is generated as red cut line
+- Second GPT button for engraving motifs with a cuttable frame
+- Renamed **Create cut motif** GPT button for classic cutting motifs
+- Dynamic tooltips for mask creation and SVG export depending on output mode
+- Updated in-app help
+- Nuitka-based application build prepared
 
-## Typical Workflow
+## Custom GPT Buttons
 
-1. Load an image
-2. Adjust the black threshold
-3. Create the mask
-4. Remove small parts and adjust smoothing
-5. Connect islands with bridges if needed
-6. Check the SVG preview
-7. Set the motif width
-8. Save SVG or DXF
-9. Continue in your laser software
-
-## Export Formats
-
-### SVG
-
-The SVG export creates vector-based contours for laser cutting. The cutting line is saved as a colored stroke without fill.
-
-### DXF
-
-The DXF export creates a simple contour file for applications and machines that prefer DXF.
-
-### PNG
-
-The PNG export saves the optimized mask as an image file.
-
-## Laser Cutter Compatibility
-
-LaserCut KonturFix is designed for common laser workflows and can prepare files for software such as Trotec Ruby, LightBurn, RDWorks, Epilog software, xTool software, or other SVG/DXF-compatible laser applications.
-
-Colors, line widths, and import behavior may differ between machines and software packages. Always check the final file and laser settings inside your target laser software before cutting.
-
-## Create Motif
-
-Version 2.4.0 adds the **Create motif** button. It opens a dedicated Custom GPT for laser cutter designs:
+**Create cut motif** opens a specialized GPT for laser-cuttable cut-out motifs:
 
 https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting
 
-At least a free ChatGPT account is required. The user must be logged in through the browser.
+**Create engraving motif** opens a specialized GPT for engraving images with a cuttable frame:
 
-## Licensing
+https://chatgpt.com/g/g-6a220529bf9c81918c19433cccca2c31-create-engraving-motifs
 
-The software can be used during a trial period. A license is required for permanent activation.
+Both features require at least a free ChatGPT account and an active browser login.
 
-The license section includes:
+## Workflow for Cut Motifs
 
-- Name / company
-- Email address
-- Installation ID
-- License code
+1. Load an image or create a cut motif with the GPT button
+2. Select **Cut motif** output mode
+3. Adjust black threshold, smoothing and small-part cleanup
+4. Create the mask
+5. Connect islands if needed
+6. Check the SVG preview
+7. Set the motif width
+8. Save SVG or DXF
 
-The installation ID can be copied and used when requesting a license.
+## Workflow for Engraving Motifs
+
+1. Create an engraving motif with the GPT button or load your own image
+2. Select **Engraving + outer cut**
+3. Create the mask
+4. Check the outer contour in the preview
+5. Save SVG
+6. The SVG can then be opened and nested in NestCheck
+
+## Export Colors
+
+- Red: cut contour
+- Blue: engraving / engraving preview
+- Gray: ignored helper contours
+
+In engraving mode, the SVG contains an embedded raster image for engraving and a red outer contour for cutting.
+
+## Compatibility
+
+LaserCut KonturFix is designed for common laser workflows, including Trotec Ruby, LightBurn, RDWorks, Epilog, xTool and other software that can import SVG or DXF. Because machines may interpret colors and line widths differently, always check the final file in your target laser software before cutting.
 
 ## Installation
 
-A Windows installer is available:
+The Windows installer is named:
 
 ```text
-LaserCut_KonturFix_v2_4_0_multilingual_Setup.exe
+LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe
 ```
 
-After installation, the app can be launched from the desktop shortcut or from the Start menu.
+Direct download:
 
-## Uninstallation
+https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe
 
-The installed version includes an uninstaller. The software can be removed through Windows app management or through the uninstaller in the installation folder.
+After installation, the app can be launched from the desktop shortcut or Start menu. An uninstaller is included.
+
+## Licensing
+
+The software can be used during a trial period. A license is required for permanent use. The license area includes name/company, email address, installation ID and license code. The license request can be prepared directly from the app.
 
 ## System Requirements
 
 - Windows 10 or newer
 - 64-bit system recommended
-- For the "Create motif" button: internet connection and ChatGPT account
-
-## Usage Notes
-
-- Always check exported files in the target laser software before cutting.
-- For complex images, it may be useful to adjust threshold, smoothing, and small-part removal several times.
-- Loose islands should be connected with bridges wide enough for the selected material and design size.
-- Very fine details may be lost depending on material, laser power, and kerf width.
-
-## Version
-
-Current version:
-
-```text
-LaserCut KonturFix v2.4.0 multilingual
-```
+- Internet connection for the GPT buttons
+- ChatGPT account for the motif GPTs
 
 ## Author
 
