@@ -360,10 +360,11 @@
           <p class="lead" data-i18n="lead">LaserCut KonturFix wandelt Bilder in saubere SVG- und DXF-Dateien fuer den Lasercutter um. V2.5.0 ergaenzt den Spezialmodus fuer Gravurmotive mit schneidbarer Aussenkontur.</p>
           <div class="offer-card">
             <div class="offer-price" data-i18n="bundleOffer">Bundle-Einführungspreis: 69 €</div>
+            <div class="offer-note" data-i18n="bundleIncludes">Das Bundle besteht aus LaserCut KonturFix und NestCheck.</div>
             <div class="offer-note" data-i18n="bundleRegular">Der reguläre Bundlepreis wird später 129 € betragen.</div>
           </div>
           <div class="actions">
-            <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
+            <a class="btn primary" data-i18n="download" data-download-track="hero" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
             <a class="btn secondary" data-i18n="repo" href="https://github.com/Stoni66/LaserCut_KonturFix">GitHub Repository</a>
             <a class="btn green" data-i18n="videoBtn" href="#video">Video ansehen</a>
           </div>
@@ -443,7 +444,7 @@
           <p data-i18n="downloadText">Lade den Windows-Installer fuer v2.5.0 direkt aus dem GitHub-Repository herunter. Die Software enthaelt eine Testphase und kann anschliessend per Lizenz aktiviert werden.</p>
         </div>
         <div class="actions">
-          <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
+          <a class="btn primary" data-i18n="download" data-download-track="download-section" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
           <a class="btn secondary" data-i18n="release" href="https://github.com/Stoni66/LaserCut_KonturFix/releases">Releases</a>
         </div>
       </div>
@@ -464,6 +465,7 @@
         headline: "Aus Bildern werden <strong>Laser-Konturen</strong>.",
         lead: "LaserCut KonturFix wandelt Bilder in saubere SVG- und DXF-Dateien fuer den Lasercutter um. V2.5.0 ergaenzt den Spezialmodus fuer Gravurmotive mit schneidbarer Aussenkontur.",
         bundleOffer: "Bundle-Einführungspreis: 69 €",
+        bundleIncludes: "Das Bundle besteht aus LaserCut KonturFix und NestCheck.",
         bundleRegular: "Der reguläre Bundlepreis wird später 129 € betragen.",
         download: "Download fuer Windows",
         repo: "GitHub Repository",
@@ -498,6 +500,7 @@
         headline: "Turn images into <strong>laser contours</strong>.",
         lead: "LaserCut KonturFix converts images into clean SVG and DXF files for laser cutters. V2.5.0 adds a dedicated engraving mode with a cuttable outer contour.",
         bundleOffer: "Bundle launch price: 69 €",
+        bundleIncludes: "The bundle includes LaserCut KonturFix and NestCheck.",
         bundleRegular: "The regular bundle price will later be 129 €.",
         download: "Download for Windows",
         repo: "GitHub repository",
@@ -532,6 +535,7 @@
         headline: "Trasforma le immagini in <strong>contorni laser</strong>.",
         lead: "LaserCut KonturFix converte immagini in file SVG e DXF puliti per laser cutter. La v2.5.0 aggiunge una modalita dedicata per incisioni con contorno esterno tagliabile.",
         bundleOffer: "Prezzo introduttivo del bundle: 69 €",
+        bundleIncludes: "Il bundle include LaserCut KonturFix e NestCheck.",
         bundleRegular: "Il prezzo regolare del bundle sara in seguito 129 €.",
         download: "Download per Windows",
         repo: "Repository GitHub",
@@ -566,6 +570,7 @@
         headline: "Transformez vos images en <strong>contours laser</strong>.",
         lead: "LaserCut KonturFix convertit les images en fichiers SVG et DXF propres pour les decoupeuses laser. La v2.5.0 ajoute un mode dedie aux gravures avec contour exterieur decoupable.",
         bundleOffer: "Prix de lancement du bundle : 69 €",
+        bundleIncludes: "Le bundle comprend LaserCut KonturFix et NestCheck.",
         bundleRegular: "Le prix regulier du bundle sera ensuite de 129 €.",
         download: "Telecharger pour Windows",
         repo: "Depot GitHub",
@@ -600,6 +605,7 @@
         headline: "Convierte imagenes en <strong>contornos laser</strong>.",
         lead: "LaserCut KonturFix convierte imagenes en archivos SVG y DXF limpios para cortadoras laser. La v2.5.0 anade un modo dedicado para grabados con contorno exterior cortable.",
         bundleOffer: "Precio introductorio del bundle: 69 €",
+        bundleIncludes: "El bundle incluye LaserCut KonturFix y NestCheck.",
         bundleRegular: "El precio regular del bundle sera mas adelante 129 €.",
         download: "Descargar para Windows",
         repo: "Repositorio GitHub",
@@ -649,6 +655,18 @@
     }
 
     buttons.forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
+    document.querySelectorAll("[data-download-track]").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (!window.goatcounter || typeof window.goatcounter.count !== "function") {
+          return;
+        }
+        window.goatcounter.count({
+          path: `/download/lasercut-konturfix-v2-5-0/${link.dataset.downloadTrack}`,
+          title: `LaserCut KonturFix Download (${link.dataset.downloadTrack})`,
+          event: true,
+        });
+      });
+    });
     setLanguage(localStorage.getItem("laserCutKonturFixLang") || "de");
   </script>
 </body>
