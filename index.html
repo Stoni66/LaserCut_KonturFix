@@ -169,6 +169,33 @@
       line-height: 1.35;
     }
 
+    .nestcheck-link {
+      display: inline-flex;
+      align-items: center;
+      margin: 12px 0 6px;
+      padding: 10px 13px;
+      border: 1px solid rgba(120, 178, 255, .55);
+      border-radius: 8px;
+      background: rgba(31, 123, 231, .13);
+      color: #dcecff;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .download-counter {
+      display: inline-flex;
+      align-items: center;
+      min-height: 50px;
+      padding: 0 14px;
+      border: 1px solid rgba(240, 193, 95, .65);
+      border-radius: 8px;
+      background: rgba(240, 193, 95, .12);
+      color: #ffe4a8;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
     .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
     .btn {
       display: inline-flex;
@@ -363,8 +390,10 @@
             <div class="offer-note" data-i18n="bundleIncludes">Das Bundle besteht aus LaserCut KonturFix und NestCheck.</div>
             <div class="offer-note" data-i18n="bundleRegular">Der reguläre Bundlepreis wird später 129 € betragen.</div>
           </div>
+          <a class="nestcheck-link" data-i18n="nestCheckLink" href="https://stoni66.github.io/NestCheck_DXF_SVG/">NestCheck Landing Page ansehen</a>
           <div class="actions">
             <a class="btn primary" data-i18n="download" data-download-track="hero" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
+            <span class="download-counter" data-download-counter data-i18n="downloadCounter">Download-Zaehler aktiv</span>
             <a class="btn secondary" data-i18n="repo" href="https://github.com/Stoni66/LaserCut_KonturFix">GitHub Repository</a>
             <a class="btn green" data-i18n="videoBtn" href="#video">Video ansehen</a>
           </div>
@@ -445,6 +474,7 @@
         </div>
         <div class="actions">
           <a class="btn primary" data-i18n="download" data-download-track="download-section" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
+          <span class="download-counter" data-download-counter data-i18n="downloadCounter">Download-Zaehler aktiv</span>
           <a class="btn secondary" data-i18n="release" href="https://github.com/Stoni66/LaserCut_KonturFix/releases">Releases</a>
         </div>
       </div>
@@ -467,6 +497,9 @@
         bundleOffer: "Bundle-Einführungspreis: 69 €",
         bundleIncludes: "Das Bundle besteht aus LaserCut KonturFix und NestCheck.",
         bundleRegular: "Der reguläre Bundlepreis wird später 129 € betragen.",
+        nestCheckLink: "NestCheck Landing Page ansehen",
+        downloadCounter: "Download-Zaehler aktiv",
+        downloadCounted: "Download wurde gezaehlt",
         download: "Download fuer Windows",
         repo: "GitHub Repository",
         videoBtn: "Video ansehen",
@@ -502,6 +535,9 @@
         bundleOffer: "Bundle launch price: 69 €",
         bundleIncludes: "The bundle includes LaserCut KonturFix and NestCheck.",
         bundleRegular: "The regular bundle price will later be 129 €.",
+        nestCheckLink: "View the NestCheck landing page",
+        downloadCounter: "Download counter active",
+        downloadCounted: "Download counted",
         download: "Download for Windows",
         repo: "GitHub repository",
         videoBtn: "Watch video",
@@ -537,6 +573,9 @@
         bundleOffer: "Prezzo introduttivo del bundle: 69 €",
         bundleIncludes: "Il bundle include LaserCut KonturFix e NestCheck.",
         bundleRegular: "Il prezzo regolare del bundle sara in seguito 129 €.",
+        nestCheckLink: "Apri la landing page di NestCheck",
+        downloadCounter: "Contatore download attivo",
+        downloadCounted: "Download conteggiato",
         download: "Download per Windows",
         repo: "Repository GitHub",
         videoBtn: "Guarda il video",
@@ -572,6 +611,9 @@
         bundleOffer: "Prix de lancement du bundle : 69 €",
         bundleIncludes: "Le bundle comprend LaserCut KonturFix et NestCheck.",
         bundleRegular: "Le prix regulier du bundle sera ensuite de 129 €.",
+        nestCheckLink: "Voir la landing page NestCheck",
+        downloadCounter: "Compteur de telechargement actif",
+        downloadCounted: "Telechargement compte",
         download: "Telecharger pour Windows",
         repo: "Depot GitHub",
         videoBtn: "Voir la video",
@@ -607,6 +649,9 @@
         bundleOffer: "Precio introductorio del bundle: 69 €",
         bundleIncludes: "El bundle incluye LaserCut KonturFix y NestCheck.",
         bundleRegular: "El precio regular del bundle sera mas adelante 129 €.",
+        nestCheckLink: "Ver la landing page de NestCheck",
+        downloadCounter: "Contador de descargas activo",
+        downloadCounted: "Descarga contada",
         download: "Descargar para Windows",
         repo: "Repositorio GitHub",
         videoBtn: "Ver video",
@@ -657,6 +702,11 @@
     buttons.forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
     document.querySelectorAll("[data-download-track]").forEach((link) => {
       link.addEventListener("click", () => {
+        const lang = localStorage.getItem("laserCutKonturFixLang") || "de";
+        const selected = translations[lang] || translations.de;
+        document.querySelectorAll("[data-download-counter]").forEach((counter) => {
+          counter.textContent = selected.downloadCounted || translations.de.downloadCounted;
+        });
         if (!window.goatcounter || typeof window.goatcounter.count !== "function") {
           return;
         }
