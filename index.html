@@ -182,18 +182,44 @@
       line-height: 1.35;
     }
 
-    .download-counter {
+    .download-stats {
+      display: inline-grid;
+      grid-template-columns: auto auto auto auto;
+      align-items: stretch;
+      overflow: hidden;
+      min-height: 40px;
+      border: 1px solid rgba(120, 178, 255, .55);
+      border-radius: 8px;
+      background: rgba(11, 23, 38, .86);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, .28);
+    }
+
+    .download-stat-label,
+    .download-stat-value {
       display: inline-flex;
       align-items: center;
-      min-height: 50px;
-      padding: 0 14px;
-      border: 1px solid rgba(240, 193, 95, .65);
-      border-radius: 8px;
-      background: rgba(240, 193, 95, .12);
-      color: #ffe4a8;
-      font-size: 13px;
-      font-weight: 900;
-      line-height: 1.25;
+      justify-content: center;
+      padding: 0 12px;
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .download-stat-label {
+      color: #e9f3ff;
+      background: rgba(15, 28, 45, .95);
+    }
+
+    .download-stat-value {
+      min-width: 44px;
+      color: #fff;
+      background: var(--blue);
+    }
+
+    .download-stat-value.total {
+      background: var(--green);
     }
 
     .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
@@ -393,9 +419,14 @@
           <a class="nestcheck-link" data-i18n="nestCheckLink" href="https://stoni66.github.io/NestCheck_DXF_SVG/">NestCheck Landing Page ansehen</a>
           <div class="actions">
             <a class="btn primary" data-i18n="download" data-download-track="hero" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
-            <span class="download-counter" data-download-counter data-i18n="downloadCounter">Download-Zaehler aktiv</span>
             <a class="btn secondary" data-i18n="repo" href="https://github.com/Stoni66/LaserCut_KonturFix">GitHub Repository</a>
             <a class="btn green" data-i18n="videoBtn" href="#video">Video ansehen</a>
+          </div>
+          <div class="download-stats" data-download-counter>
+            <span class="download-stat-label" data-i18n="downloadsVersion">Downloads v2.5.0</span>
+            <span class="download-stat-value" data-download-version>...</span>
+            <span class="download-stat-label" data-i18n="downloadsTotal">Total Downloads</span>
+            <span class="download-stat-value total" data-download-total>...</span>
           </div>
           <div class="meta">
             <span>v2.5.0 multilingual</span>
@@ -474,8 +505,13 @@
         </div>
         <div class="actions">
           <a class="btn primary" data-i18n="download" data-download-track="download-section" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
-          <span class="download-counter" data-download-counter data-i18n="downloadCounter">Download-Zaehler aktiv</span>
           <a class="btn secondary" data-i18n="release" href="https://github.com/Stoni66/LaserCut_KonturFix/releases">Releases</a>
+        </div>
+        <div class="download-stats" data-download-counter>
+          <span class="download-stat-label" data-i18n="downloadsVersion">Downloads v2.5.0</span>
+          <span class="download-stat-value" data-download-version>...</span>
+          <span class="download-stat-label" data-i18n="downloadsTotal">Total Downloads</span>
+          <span class="download-stat-value total" data-download-total>...</span>
         </div>
       </div>
     </section>
@@ -498,8 +534,8 @@
         bundleIncludes: "Das Bundle besteht aus LaserCut KonturFix und NestCheck.",
         bundleRegular: "Der reguläre Bundlepreis wird später 129 € betragen.",
         nestCheckLink: "NestCheck Landing Page ansehen",
-        downloadCounter: "Download-Zaehler aktiv",
-        downloadCounted: "Download wurde gezaehlt",
+        downloadsVersion: "Downloads v2.5.0",
+        downloadsTotal: "Total Downloads",
         download: "Download fuer Windows",
         repo: "GitHub Repository",
         videoBtn: "Video ansehen",
@@ -536,8 +572,8 @@
         bundleIncludes: "The bundle includes LaserCut KonturFix and NestCheck.",
         bundleRegular: "The regular bundle price will later be 129 €.",
         nestCheckLink: "View the NestCheck landing page",
-        downloadCounter: "Download counter active",
-        downloadCounted: "Download counted",
+        downloadsVersion: "Downloads v2.5.0",
+        downloadsTotal: "Total downloads",
         download: "Download for Windows",
         repo: "GitHub repository",
         videoBtn: "Watch video",
@@ -574,8 +610,8 @@
         bundleIncludes: "Il bundle include LaserCut KonturFix e NestCheck.",
         bundleRegular: "Il prezzo regolare del bundle sara in seguito 129 €.",
         nestCheckLink: "Apri la landing page di NestCheck",
-        downloadCounter: "Contatore download attivo",
-        downloadCounted: "Download conteggiato",
+        downloadsVersion: "Download v2.5.0",
+        downloadsTotal: "Download totali",
         download: "Download per Windows",
         repo: "Repository GitHub",
         videoBtn: "Guarda il video",
@@ -612,8 +648,8 @@
         bundleIncludes: "Le bundle comprend LaserCut KonturFix et NestCheck.",
         bundleRegular: "Le prix regulier du bundle sera ensuite de 129 €.",
         nestCheckLink: "Voir la landing page NestCheck",
-        downloadCounter: "Compteur de telechargement actif",
-        downloadCounted: "Telechargement compte",
+        downloadsVersion: "Telechargements v2.5.0",
+        downloadsTotal: "Total telechargements",
         download: "Telecharger pour Windows",
         repo: "Depot GitHub",
         videoBtn: "Voir la video",
@@ -650,8 +686,8 @@
         bundleIncludes: "El bundle incluye LaserCut KonturFix y NestCheck.",
         bundleRegular: "El precio regular del bundle sera mas adelante 129 €.",
         nestCheckLink: "Ver la landing page de NestCheck",
-        downloadCounter: "Contador de descargas activo",
-        downloadCounted: "Descarga contada",
+        downloadsVersion: "Descargas v2.5.0",
+        downloadsTotal: "Descargas totales",
         download: "Descargar para Windows",
         repo: "Repositorio GitHub",
         videoBtn: "Ver video",
@@ -683,6 +719,8 @@
 
     const buttons = document.querySelectorAll("[data-lang]");
     const html = document.documentElement;
+    const releaseApiUrl = "https://api.github.com/repos/Stoni66/LaserCut_KonturFix/releases";
+    let downloadStats = { version: null, total: null };
 
     function setLanguage(lang) {
       const selected = translations[lang] || translations.de;
@@ -699,14 +737,49 @@
       localStorage.setItem("laserCutKonturFixLang", lang);
     }
 
+    function setDownloadStats(versionCount, totalCount) {
+      downloadStats = { version: versionCount, total: totalCount };
+      document.querySelectorAll("[data-download-version]").forEach((node) => {
+        node.textContent = Number.isFinite(versionCount) ? versionCount : "-";
+      });
+      document.querySelectorAll("[data-download-total]").forEach((node) => {
+        node.textContent = Number.isFinite(totalCount) ? totalCount : "-";
+      });
+    }
+
+    async function loadDownloadStats() {
+      try {
+        const response = await fetch(releaseApiUrl, { headers: { Accept: "application/vnd.github+json" } });
+        if (!response.ok) {
+          throw new Error("GitHub releases unavailable");
+        }
+        const releases = await response.json();
+        let versionCount = 0;
+        let totalCount = 0;
+        releases.forEach((release) => {
+          (release.assets || []).forEach((asset) => {
+            if (!asset.name || !asset.name.endsWith(".exe")) {
+              return;
+            }
+            const count = Number(asset.download_count || 0);
+            totalCount += count;
+            if (release.tag_name === "v2_5_0" || asset.name.includes("v2_5_0")) {
+              versionCount += count;
+            }
+          });
+        });
+        setDownloadStats(versionCount, totalCount);
+      } catch (_error) {
+        setDownloadStats(null, null);
+      }
+    }
+
     buttons.forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
     document.querySelectorAll("[data-download-track]").forEach((link) => {
       link.addEventListener("click", () => {
-        const lang = localStorage.getItem("laserCutKonturFixLang") || "de";
-        const selected = translations[lang] || translations.de;
-        document.querySelectorAll("[data-download-counter]").forEach((counter) => {
-          counter.textContent = selected.downloadCounted || translations.de.downloadCounted;
-        });
+        if (Number.isFinite(downloadStats.version) && Number.isFinite(downloadStats.total)) {
+          setDownloadStats(downloadStats.version + 1, downloadStats.total + 1);
+        }
         if (!window.goatcounter || typeof window.goatcounter.count !== "function") {
           return;
         }
@@ -718,6 +791,7 @@
       });
     });
     setLanguage(localStorage.getItem("laserCutKonturFixLang") || "de");
+    loadDownloadStats();
   </script>
 </body>
 </html>
