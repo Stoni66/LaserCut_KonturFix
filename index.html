@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LaserCut KonturFix v2.5.0</title>
   <meta name="description" content="LaserCut KonturFix converts cutting and engraving motifs into laser-ready SVG and DXF files.">
-<script data-goatcounter="https://stoni66.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-   <style>
+  <script data-goatcounter="https://stoni66.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  <style>
     :root {
       --bg: #060d15;
       --panel: #0d1a2b;
@@ -142,6 +142,33 @@
       margin: 0 0 26px;
     }
 
+    .offer-card {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 620px;
+      margin: 2px 0 4px;
+      padding: 15px 18px;
+      border: 1px solid rgba(240, 193, 95, .72);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(240, 193, 95, .18), rgba(255, 37, 53, .12));
+      box-shadow: 0 18px 55px rgba(0, 0, 0, .3);
+    }
+
+    .offer-price {
+      color: #ffe4a8;
+      font-size: clamp(20px, 2.4vw, 30px);
+      font-weight: 950;
+      line-height: 1.2;
+    }
+
+    .offer-note {
+      color: #f7d7a5;
+      font-size: 15px;
+      font-weight: 850;
+      line-height: 1.35;
+    }
+
     .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
     .btn {
       display: inline-flex;
@@ -168,28 +195,6 @@
       font-size: 13px;
     }
     .meta span { border: 1px solid var(--line); background: #0b1726; padding: 8px 10px; border-radius: 7px; }
-
-    .download-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-top: 16px;
-    }
-
-    .download-badges a {
-      display: inline-flex;
-      min-height: 24px;
-      border-radius: 5px;
-      overflow: hidden;
-      box-shadow: 0 8px 26px rgba(0, 0, 0, .22);
-    }
-
-    .download-badges img {
-      display: block;
-      height: 24px;
-      max-width: 100%;
-    }
 
     .hero-card {
       background: linear-gradient(180deg, rgba(19, 34, 53, .92), rgba(8, 20, 34, .92));
@@ -353,18 +358,14 @@
           <div class="eyebrow"><span class="dot"></span><span data-i18n="eyebrow">Windows App fuer Laser-Cutter-Designs</span></div>
           <h1 data-i18n-html="headline">Aus Bildern werden <strong>Laser-Konturen</strong>.</h1>
           <p class="lead" data-i18n="lead">LaserCut KonturFix wandelt Bilder in saubere SVG- und DXF-Dateien fuer den Lasercutter um. V2.5.0 ergaenzt den Spezialmodus fuer Gravurmotive mit schneidbarer Aussenkontur.</p>
+          <div class="offer-card">
+            <div class="offer-price" data-i18n="bundleOffer">Bundle-Einführungspreis: 69 €</div>
+            <div class="offer-note" data-i18n="bundleRegular">Der reguläre Bundlepreis wird später 129 € betragen.</div>
+          </div>
           <div class="actions">
             <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
             <a class="btn secondary" data-i18n="repo" href="https://github.com/Stoni66/LaserCut_KonturFix">GitHub Repository</a>
             <a class="btn green" data-i18n="videoBtn" href="#video">Video ansehen</a>
-          </div>
-          <div class="download-badges" aria-label="GitHub download counters">
-            <a href="https://github.com/Stoni66/LaserCut_KonturFix/releases/tag/v2_5_0">
-              <img alt="Downloads v2.5.0" src="https://img.shields.io/github/downloads/Stoni66/LaserCut_KonturFix/v2_5_0/total?label=Downloads%20v2.5.0&style=for-the-badge&color=1f7be7">
-            </a>
-            <a href="https://github.com/Stoni66/LaserCut_KonturFix/releases">
-              <img alt="Total downloads" src="https://img.shields.io/github/downloads/Stoni66/LaserCut_KonturFix/total?label=Total%20Downloads&style=for-the-badge&color=148f74">
-            </a>
           </div>
           <div class="meta">
             <span>v2.5.0 multilingual</span>
@@ -429,7 +430,7 @@
         </div>
         <div class="video-card">
           <div class="video">
-            <iframe src="https://www.youtube.com/embed/HDPz1uf2Jfg" title="LaserCut KonturFix YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/63AHmWisB6I" title="LaserCut KonturFix YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -440,14 +441,6 @@
         <div>
           <h2 data-i18n="downloadTitle">Direkt herunterladen</h2>
           <p data-i18n="downloadText">Lade den Windows-Installer fuer v2.5.0 direkt aus dem GitHub-Repository herunter. Die Software enthaelt eine Testphase und kann anschliessend per Lizenz aktiviert werden.</p>
-          <div class="download-badges" aria-label="GitHub download counters">
-            <a href="https://github.com/Stoni66/LaserCut_KonturFix/releases/tag/v2_5_0">
-              <img alt="Downloads v2.5.0" src="https://img.shields.io/github/downloads/Stoni66/LaserCut_KonturFix/v2_5_0/total?label=Downloads%20v2.5.0&style=for-the-badge&color=1f7be7">
-            </a>
-            <a href="https://github.com/Stoni66/LaserCut_KonturFix/releases">
-              <img alt="Total downloads" src="https://img.shields.io/github/downloads/Stoni66/LaserCut_KonturFix/total?label=Total%20Downloads&style=for-the-badge&color=148f74">
-            </a>
-          </div>
         </div>
         <div class="actions">
           <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
@@ -470,6 +463,8 @@
         eyebrow: "Windows App fuer Laser-Cutter-Designs",
         headline: "Aus Bildern werden <strong>Laser-Konturen</strong>.",
         lead: "LaserCut KonturFix wandelt Bilder in saubere SVG- und DXF-Dateien fuer den Lasercutter um. V2.5.0 ergaenzt den Spezialmodus fuer Gravurmotive mit schneidbarer Aussenkontur.",
+        bundleOffer: "Bundle-Einführungspreis: 69 €",
+        bundleRegular: "Der reguläre Bundlepreis wird später 129 € betragen.",
         download: "Download fuer Windows",
         repo: "GitHub Repository",
         videoBtn: "Video ansehen",
@@ -502,6 +497,8 @@
         eyebrow: "Windows app for laser cutter designs",
         headline: "Turn images into <strong>laser contours</strong>.",
         lead: "LaserCut KonturFix converts images into clean SVG and DXF files for laser cutters. V2.5.0 adds a dedicated engraving mode with a cuttable outer contour.",
+        bundleOffer: "Bundle launch price: 69 €",
+        bundleRegular: "The regular bundle price will later be 129 €.",
         download: "Download for Windows",
         repo: "GitHub repository",
         videoBtn: "Watch video",
@@ -534,6 +531,8 @@
         eyebrow: "App Windows per design laser cutter",
         headline: "Trasforma le immagini in <strong>contorni laser</strong>.",
         lead: "LaserCut KonturFix converte immagini in file SVG e DXF puliti per laser cutter. La v2.5.0 aggiunge una modalita dedicata per incisioni con contorno esterno tagliabile.",
+        bundleOffer: "Prezzo introduttivo del bundle: 69 €",
+        bundleRegular: "Il prezzo regolare del bundle sara in seguito 129 €.",
         download: "Download per Windows",
         repo: "Repository GitHub",
         videoBtn: "Guarda il video",
@@ -566,6 +565,8 @@
         eyebrow: "Application Windows pour designs laser",
         headline: "Transformez vos images en <strong>contours laser</strong>.",
         lead: "LaserCut KonturFix convertit les images en fichiers SVG et DXF propres pour les decoupeuses laser. La v2.5.0 ajoute un mode dedie aux gravures avec contour exterieur decoupable.",
+        bundleOffer: "Prix de lancement du bundle : 69 €",
+        bundleRegular: "Le prix regulier du bundle sera ensuite de 129 €.",
         download: "Telecharger pour Windows",
         repo: "Depot GitHub",
         videoBtn: "Voir la video",
@@ -598,6 +599,8 @@
         eyebrow: "Aplicacion Windows para disenos laser",
         headline: "Convierte imagenes en <strong>contornos laser</strong>.",
         lead: "LaserCut KonturFix convierte imagenes en archivos SVG y DXF limpios para cortadoras laser. La v2.5.0 anade un modo dedicado para grabados con contorno exterior cortable.",
+        bundleOffer: "Precio introductorio del bundle: 69 €",
+        bundleRegular: "El precio regular del bundle sera mas adelante 129 €.",
         download: "Descargar para Windows",
         repo: "Repositorio GitHub",
         videoBtn: "Ver video",
