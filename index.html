@@ -248,6 +248,19 @@
 
     .download-card h2 { color: #fff; }
     .download-card p { margin: 8px 0 0; color: var(--muted); font-weight: 700; line-height: 1.55; }
+    .download-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255, 37, 72, .45);
+      border-radius: 8px;
+      background: rgba(255, 37, 72, .08);
+      color: #e7f2ff;
+      font-weight: 900;
+    }
+    .download-stat strong { color: #ff2548; font-size: 1.2rem; }
     .contact-card { margin-top: 18px; border-color: rgba(255, 37, 72, .55); }
     .contact-card .mail-link { color: #ff2548; font-size: 1.08rem; font-weight: 1000; text-decoration: none; }
     .contact-card .mail-link:hover { text-decoration: underline; }
@@ -422,6 +435,7 @@
         <div>
           <h2 data-i18n="downloadTitle">Direkt herunterladen</h2>
           <p data-i18n="downloadText">Lade den Windows-Installer fuer v2.5.0 direkt aus dem GitHub-Repository herunter. Die Software enthaelt eine Testphase und kann anschliessend per Lizenz aktiviert werden.</p>
+          <div class="download-stat" aria-live="polite"><span data-i18n="downloadCountLabel">Aktuelle Downloads:</span> <strong id="downloadCount">...</strong></div>
         </div>
         <div class="actions">
           <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
@@ -481,6 +495,7 @@
         downloadTitle: "Direkt herunterladen",
         downloadText: "Lade den Windows-Installer fuer v2.5.0 direkt aus dem GitHub-Repository herunter. Die Software enthaelt eine Testphase und kann anschliessend per Lizenz aktiviert werden.",
         release: "Releases",
+        downloadCountLabel: "Aktuelle Downloads:",
         contactTitle: "Kontakt / Support",
         contactBody: "Bei Fragen, Problemen oder Lizenzthemen kannst du mich direkt per E-Mail erreichen.",
         footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
@@ -516,6 +531,7 @@
         downloadTitle: "Direct download",
         downloadText: "Download the v2.5.0 Windows installer directly from the GitHub repository. The software includes a trial period and can then be activated with a license.",
         release: "Releases",
+        downloadCountLabel: "Current downloads:",
         contactTitle: "Contact / Support",
         contactBody: "For questions, problems, or license topics, you can contact me directly by email.",
         footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
@@ -551,6 +567,7 @@
         downloadTitle: "Download diretto",
         downloadText: "Scarica l'installer Windows v2.5.0 direttamente dal repository GitHub. Il software include una fase di prova e puo essere attivato con una licenza.",
         release: "Release",
+        downloadCountLabel: "Download attuali:",
         contactTitle: "Contatto / Supporto",
         contactBody: "Per domande, problemi o temi di licenza puoi contattarmi direttamente via e-mail.",
         footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
@@ -586,6 +603,7 @@
         downloadTitle: "Telechargement direct",
         downloadText: "Telechargez l'installateur Windows v2.5.0 directement depuis le depot GitHub. Le logiciel inclut une periode d'essai et peut ensuite etre active avec une licence.",
         release: "Versions",
+        downloadCountLabel: "Telechargements actuels:",
         contactTitle: "Contact / Support",
         contactBody: "Pour toute question, probleme ou sujet de licence, vous pouvez me contacter directement par e-mail.",
         footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
@@ -621,6 +639,7 @@
         downloadTitle: "Descarga directa",
         downloadText: "Descarga el instalador de Windows v2.5.0 directamente desde el repositorio GitHub. El software incluye un periodo de prueba y luego puede activarse con una licencia.",
         release: "Versiones",
+        downloadCountLabel: "Descargas actuales:",
         contactTitle: "Contacto / Soporte",
         contactBody: "Para preguntas, problemas o temas de licencia, puedes contactarme directamente por correo electronico.",
         footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
@@ -645,11 +664,32 @@
       localStorage.setItem("laserCutKonturFixLang", lang);
     }
 
+
+    async function loadDownloadCount() {
+      const target = document.getElementById("downloadCount");
+      if (!target) return;
+      try {
+        const response = await fetch("https://api.github.com/repos/Stoni66/LaserCut_KonturFix/releases", { cache: "no-store" });
+        if (!response.ok) throw new Error("GitHub API unavailable");
+        const releases = await response.json();
+        const total = releases.reduce((sum, release) => {
+          const assets = Array.isArray(release.assets) ? release.assets : [];
+          return sum + assets.reduce((assetSum, asset) => assetSum + (asset.download_count || 0), 0);
+        }, 0);
+        target.textContent = total.toLocaleString(document.documentElement.lang || "de");
+      } catch (error) {
+        target.textContent = "--";
+      }
+    }
     buttons.forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
     setLanguage(localStorage.getItem("laserCutKonturFixLang") || "de");
+    loadDownloadCount();
   </script>
 </body>
 </html>
+
+
+
 
 
 
