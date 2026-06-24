@@ -1,12 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LaserCut KonturFix v2.5.0</title>
   <meta name="description" content="LaserCut KonturFix converts cutting and engraving motifs into laser-ready SVG and DXF files.">
-  <script data-goatcounter="https://stoni66.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
   <style>
     :root {
       --bg: #060d15;
@@ -140,86 +138,6 @@
       line-height: 1.48;
       max-width: 780px;
       margin: 0 0 26px;
-    }
-
-    .offer-card {
-      display: inline-flex;
-      flex-direction: column;
-      gap: 6px;
-      max-width: 620px;
-      margin: 2px 0 4px;
-      padding: 15px 18px;
-      border: 1px solid rgba(240, 193, 95, .72);
-      border-radius: 10px;
-      background: linear-gradient(135deg, rgba(240, 193, 95, .18), rgba(255, 37, 53, .12));
-      box-shadow: 0 18px 55px rgba(0, 0, 0, .3);
-    }
-
-    .offer-price {
-      color: #ffe4a8;
-      font-size: clamp(20px, 2.4vw, 30px);
-      font-weight: 950;
-      line-height: 1.2;
-    }
-
-    .offer-note {
-      color: #f7d7a5;
-      font-size: 15px;
-      font-weight: 850;
-      line-height: 1.35;
-    }
-
-    .nestcheck-link {
-      display: inline-flex;
-      align-items: center;
-      margin: 12px 0 6px;
-      padding: 10px 13px;
-      border: 1px solid rgba(120, 178, 255, .55);
-      border-radius: 8px;
-      background: rgba(31, 123, 231, .13);
-      color: #dcecff;
-      font-weight: 900;
-      line-height: 1.35;
-    }
-
-    .download-stats {
-      display: inline-grid;
-      grid-template-columns: auto auto auto auto;
-      align-items: stretch;
-      overflow: hidden;
-      min-height: 40px;
-      border: 1px solid rgba(120, 178, 255, .55);
-      border-radius: 8px;
-      background: rgba(11, 23, 38, .86);
-      box-shadow: 0 12px 34px rgba(0, 0, 0, .28);
-    }
-
-    .download-stat-label,
-    .download-stat-value {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 12px;
-      font-size: 11px;
-      font-weight: 950;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .download-stat-label {
-      color: #e9f3ff;
-      background: rgba(15, 28, 45, .95);
-    }
-
-    .download-stat-value {
-      min-width: 44px;
-      color: #fff;
-      background: var(--blue);
-    }
-
-    .download-stat-value.total {
-      background: var(--green);
     }
 
     .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
@@ -369,6 +287,17 @@
       text-align: center;
       font-weight: 800;
     }
+    footer .contact {
+      display: block;
+      margin-top: 10px;
+      color: #e7f2ff;
+      font-weight: 900;
+    }
+    footer .contact a {
+      color: #ff2548;
+      text-decoration: none;
+    }
+    footer .contact a:hover { text-decoration: underline; }
 
     .hidden { display: none !important; }
 
@@ -411,22 +340,10 @@
           <div class="eyebrow"><span class="dot"></span><span data-i18n="eyebrow">Windows App fuer Laser-Cutter-Designs</span></div>
           <h1 data-i18n-html="headline">Aus Bildern werden <strong>Laser-Konturen</strong>.</h1>
           <p class="lead" data-i18n="lead">LaserCut KonturFix wandelt Bilder in saubere SVG- und DXF-Dateien fuer den Lasercutter um. V2.5.0 ergaenzt den Spezialmodus fuer Gravurmotive mit schneidbarer Aussenkontur.</p>
-          <div class="offer-card">
-            <div class="offer-price" data-i18n="bundleOffer">Jahresabo: 99 €</div>
-            <div class="offer-note" data-i18n="bundleIncludes">Das Abo-Bundle besteht aus LaserCut KonturFix und NestCheck.</div>
-            <div class="offer-note" data-i18n="bundleRegular">Einführungspreis: 79 € fuer die ersten 2 Monate.</div>
-          </div>
-          <a class="nestcheck-link" data-i18n="nestCheckLink" href="https://stoni66.github.io/NestCheck_DXF_SVG/">NestCheck Landing Page ansehen</a>
           <div class="actions">
-            <a class="btn primary" data-i18n="download" data-download-track="hero" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
+            <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
             <a class="btn secondary" data-i18n="repo" href="https://github.com/Stoni66/LaserCut_KonturFix">GitHub Repository</a>
             <a class="btn green" data-i18n="videoBtn" href="#video">Video ansehen</a>
-          </div>
-          <div class="download-stats" data-download-counter>
-            <span class="download-stat-label" data-i18n="downloadsVersion">Downloads v2.5.0</span>
-            <span class="download-stat-value" data-download-version>...</span>
-            <span class="download-stat-label" data-i18n="downloadsTotal">Total Downloads</span>
-            <span class="download-stat-value total" data-download-total>...</span>
           </div>
           <div class="meta">
             <span>v2.5.0 multilingual</span>
@@ -504,14 +421,8 @@
           <p data-i18n="downloadText">Lade den Windows-Installer fuer v2.5.0 direkt aus dem GitHub-Repository herunter. Die Software enthaelt eine Testphase und kann anschliessend per Lizenz aktiviert werden.</p>
         </div>
         <div class="actions">
-          <a class="btn primary" data-i18n="download" data-download-track="download-section" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
+          <a class="btn primary" data-i18n="download" href="https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe">Download fuer Windows</a>
           <a class="btn secondary" data-i18n="release" href="https://github.com/Stoni66/LaserCut_KonturFix/releases">Releases</a>
-        </div>
-        <div class="download-stats" data-download-counter>
-          <span class="download-stat-label" data-i18n="downloadsVersion">Downloads v2.5.0</span>
-          <span class="download-stat-value" data-download-version>...</span>
-          <span class="download-stat-label" data-i18n="downloadsTotal">Total Downloads</span>
-          <span class="download-stat-value total" data-download-total>...</span>
         </div>
       </div>
     </section>
@@ -520,6 +431,7 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer">Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.</span>
+      <span class="contact"><span data-i18n="contactText">Kontakt bei Fragen oder Problemen:</span> <a href="mailto:oswald@steinernet.at">oswald@steinernet.at</a></span>
     </div>
   </footer>
 
@@ -530,27 +442,21 @@
         eyebrow: "Windows App fuer Laser-Cutter-Designs",
         headline: "Aus Bildern werden <strong>Laser-Konturen</strong>.",
         lead: "LaserCut KonturFix wandelt Bilder in saubere SVG- und DXF-Dateien fuer den Lasercutter um. V2.5.0 ergaenzt den Spezialmodus fuer Gravurmotive mit schneidbarer Aussenkontur.",
-        bundleOffer: "Jahresabo: 99 €",
-        bundleIncludes: "Das Abo-Bundle besteht aus LaserCut KonturFix und NestCheck.",
-        bundleRegular: "Einführungspreis: 79 € fuer die ersten 2 Monate.",
-        nestCheckLink: "NestCheck Landing Page ansehen",
-        downloadsVersion: "Downloads v2.5.0",
-        downloadsTotal: "Total Downloads",
         download: "Download fuer Windows",
         repo: "GitHub Repository",
         videoBtn: "Video ansehen",
         trial: "30 Tage Testphase",
         windows: "Windows Installer",
         featuresTitle: "Was die Software kann",
-        featuresSub: "Vom geladenen Bild bis zur exportierten Schnitt- oder Gravurdatei: alle wichtigen Schritte fuer laserfaehige Motive in einer kompakten Oberflaeche.",
-        f1Title: "Schnittmotiv erstellen",
-        f1Text: "Schwarz-Schwelle einstellen, Bild invertieren, stoerende Kleinteile entfernen und eine klare Schnittmaske erzeugen.",
+        featuresSub: "Vom geladenen Bild bis zur exportierten Schnitt- oder Gravurdatei: die wichtigen Schritte fuer laserfertige Motive in einer kompakten Oberflaeche.",
+        f1Title: "Schnittmotive erstellen",
+        f1Text: "Schwarzschwelle einstellen, Bilder invertieren, kleine unerwuenschte Details entfernen und eine klare Schnittmaske erzeugen.",
         f2Title: "Gravur + Aussenkontur",
         f2Text: "Feine Rastergravuren bleiben als Gravurbild erhalten, waehrend ein roter Rahmen als schneidbare Aussenkontur exportiert wird.",
         f3Title: "SVG und DXF exportieren",
         f3Text: "Speichert optimierte Konturen mit einstellbarer Motivbreite und SVG-Glaettung fuer typische Laser-Workflows.",
         workflowTitle: "Ein klarer Workflow",
-        workflowSub: "Die App fuehrt durch Schnittmotiv- und Gravurmotiv-Workflows, ohne dass man zwischen mehreren Programmen wechseln muss.",
+        workflowSub: "Die App fuehrt durch Schnittmotiv- und Gravurmotiv-Workflows, ohne dass man zwischen mehreren Werkzeugen wechseln muss.",
         s1: "Bild oder Motiv laden",
         s2: "Ausgabemodus waehlen",
         s3: "Maske, Gravur und Details anpassen",
@@ -561,19 +467,14 @@
         downloadTitle: "Direkt herunterladen",
         downloadText: "Lade den Windows-Installer fuer v2.5.0 direkt aus dem GitHub-Repository herunter. Die Software enthaelt eine Testphase und kann anschliessend per Lizenz aktiviert werden.",
         release: "Releases",
-        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0."
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
+        contactText: "Kontakt bei Fragen oder Problemen:"
       },
       en: {
         tagline: "Your design. Perfectly cut.",
         eyebrow: "Windows app for laser cutter designs",
         headline: "Turn images into <strong>laser contours</strong>.",
         lead: "LaserCut KonturFix converts images into clean SVG and DXF files for laser cutters. V2.5.0 adds a dedicated engraving mode with a cuttable outer contour.",
-        bundleOffer: "Annual subscription: 99 €",
-        bundleIncludes: "The subscription bundle includes LaserCut KonturFix and NestCheck.",
-        bundleRegular: "Intro price: 79 € for the first 2 months.",
-        nestCheckLink: "View the NestCheck landing page",
-        downloadsVersion: "Downloads v2.5.0",
-        downloadsTotal: "Total downloads",
         download: "Download for Windows",
         repo: "GitHub repository",
         videoBtn: "Watch video",
@@ -599,19 +500,14 @@
         downloadTitle: "Direct download",
         downloadText: "Download the v2.5.0 Windows installer directly from the GitHub repository. The software includes a trial period and can then be activated with a license.",
         release: "Releases",
-        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0."
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
+        contactText: "Contact for questions or problems:"
       },
       it: {
         tagline: "Il tuo design. Tagliato alla perfezione.",
         eyebrow: "App Windows per design laser cutter",
         headline: "Trasforma le immagini in <strong>contorni laser</strong>.",
         lead: "LaserCut KonturFix converte immagini in file SVG e DXF puliti per laser cutter. La v2.5.0 aggiunge una modalita dedicata per incisioni con contorno esterno tagliabile.",
-        bundleOffer: "Abbonamento annuale: 99 €",
-        bundleIncludes: "Il bundle in abbonamento include LaserCut KonturFix e NestCheck.",
-        bundleRegular: "Prezzo introduttivo: 79 € per i primi 2 mesi.",
-        nestCheckLink: "Apri la landing page di NestCheck",
-        downloadsVersion: "Download v2.5.0",
-        downloadsTotal: "Download totali",
         download: "Download per Windows",
         repo: "Repository GitHub",
         videoBtn: "Guarda il video",
@@ -637,19 +533,14 @@
         downloadTitle: "Download diretto",
         downloadText: "Scarica l'installer Windows v2.5.0 direttamente dal repository GitHub. Il software include una fase di prova e puo essere attivato con una licenza.",
         release: "Release",
-        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0."
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
+        contactText: "Contatto per domande o problemi:"
       },
       fr: {
         tagline: "Votre design. Coupe parfaite.",
         eyebrow: "Application Windows pour designs laser",
         headline: "Transformez vos images en <strong>contours laser</strong>.",
         lead: "LaserCut KonturFix convertit les images en fichiers SVG et DXF propres pour les decoupeuses laser. La v2.5.0 ajoute un mode dedie aux gravures avec contour exterieur decoupable.",
-        bundleOffer: "Abonnement annuel : 99 €",
-        bundleIncludes: "Le bundle par abonnement comprend LaserCut KonturFix et NestCheck.",
-        bundleRegular: "Prix de lancement : 79 € pendant les 2 premiers mois.",
-        nestCheckLink: "Voir la landing page NestCheck",
-        downloadsVersion: "Telechargements v2.5.0",
-        downloadsTotal: "Total telechargements",
         download: "Telecharger pour Windows",
         repo: "Depot GitHub",
         videoBtn: "Voir la video",
@@ -675,19 +566,14 @@
         downloadTitle: "Telechargement direct",
         downloadText: "Telechargez l'installateur Windows v2.5.0 directement depuis le depot GitHub. Le logiciel inclut une periode d'essai et peut ensuite etre active avec une licence.",
         release: "Versions",
-        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0."
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
+        contactText: "Contact pour questions ou problemes:"
       },
       es: {
         tagline: "Tu diseno. Corte perfecto.",
         eyebrow: "Aplicacion Windows para disenos laser",
         headline: "Convierte imagenes en <strong>contornos laser</strong>.",
         lead: "LaserCut KonturFix convierte imagenes en archivos SVG y DXF limpios para cortadoras laser. La v2.5.0 anade un modo dedicado para grabados con contorno exterior cortable.",
-        bundleOffer: "Suscripcion anual: 99 €",
-        bundleIncludes: "El bundle por suscripcion incluye LaserCut KonturFix y NestCheck.",
-        bundleRegular: "Precio introductorio: 79 € durante los primeros 2 meses.",
-        nestCheckLink: "Ver la landing page de NestCheck",
-        downloadsVersion: "Descargas v2.5.0",
-        downloadsTotal: "Descargas totales",
         download: "Descargar para Windows",
         repo: "Repositorio GitHub",
         videoBtn: "Ver video",
@@ -713,14 +599,12 @@
         downloadTitle: "Descarga directa",
         downloadText: "Descarga el instalador de Windows v2.5.0 directamente desde el repositorio GitHub. El software incluye un periodo de prueba y luego puede activarse con una licencia.",
         release: "Versiones",
-        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0."
+        footer: "Designed by Oswald Steiner. LaserCut KonturFix v2.5.0.",
+        contactText: "Contacto para preguntas o problemas:"
       }
     };
-
     const buttons = document.querySelectorAll("[data-lang]");
     const html = document.documentElement;
-    const releaseApiUrl = "https://api.github.com/repos/Stoni66/LaserCut_KonturFix/releases";
-    let downloadStats = { version: null, total: null };
 
     function setLanguage(lang) {
       const selected = translations[lang] || translations.de;
@@ -737,61 +621,11 @@
       localStorage.setItem("laserCutKonturFixLang", lang);
     }
 
-    function setDownloadStats(versionCount, totalCount) {
-      downloadStats = { version: versionCount, total: totalCount };
-      document.querySelectorAll("[data-download-version]").forEach((node) => {
-        node.textContent = Number.isFinite(versionCount) ? versionCount : "-";
-      });
-      document.querySelectorAll("[data-download-total]").forEach((node) => {
-        node.textContent = Number.isFinite(totalCount) ? totalCount : "-";
-      });
-    }
-
-    async function loadDownloadStats() {
-      try {
-        const response = await fetch(releaseApiUrl, { headers: { Accept: "application/vnd.github+json" } });
-        if (!response.ok) {
-          throw new Error("GitHub releases unavailable");
-        }
-        const releases = await response.json();
-        let versionCount = 0;
-        let totalCount = 0;
-        releases.forEach((release) => {
-          (release.assets || []).forEach((asset) => {
-            if (!asset.name || !asset.name.endsWith(".exe")) {
-              return;
-            }
-            const count = Number(asset.download_count || 0);
-            totalCount += count;
-            if (release.tag_name === "v2_5_0" || asset.name.includes("v2_5_0")) {
-              versionCount += count;
-            }
-          });
-        });
-        setDownloadStats(versionCount, totalCount);
-      } catch (_error) {
-        setDownloadStats(null, null);
-      }
-    }
-
     buttons.forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
-    document.querySelectorAll("[data-download-track]").forEach((link) => {
-      link.addEventListener("click", () => {
-        if (Number.isFinite(downloadStats.version) && Number.isFinite(downloadStats.total)) {
-          setDownloadStats(downloadStats.version + 1, downloadStats.total + 1);
-        }
-        if (!window.goatcounter || typeof window.goatcounter.count !== "function") {
-          return;
-        }
-        window.goatcounter.count({
-          path: `/download/lasercut-konturfix-v2-5-0/${link.dataset.downloadTrack}`,
-          title: `LaserCut KonturFix Download (${link.dataset.downloadTrack})`,
-          event: true,
-        });
-      });
-    });
     setLanguage(localStorage.getItem("laserCutKonturFixLang") || "de");
-    loadDownloadStats();
   </script>
 </body>
 </html>
+
+
+
