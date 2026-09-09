@@ -1,105 +1,82 @@
-# LaserCut KonturFix v2.5.0
+# LaserCut KonturFix v2.8.0
 
-**LaserCut KonturFix** is a Windows desktop application for preparing images and AI-generated motifs for laser cutters. It creates clean SVG or DXF output from bitmap files, can connect loose islands with bridges, and since v2.5.0 can also export engraving images with a separate cuttable outer contour.
+**LaserCut KonturFix** is a multilingual Windows desktop application for preparing bitmap images and AI-generated artwork for laser cutters. It creates clean, smoothed and validated SVG or DXF contours, connects loose islands with bridges when required, and supports engraving images with a separate cuttable outer contour.
 
-## Main Features
+## Download
 
-- Load PNG, JPG, BMP and TIFF images
-- Create cut motifs from black-and-white masks
-- Engraving mode with embedded raster image and red outer cut contour
-- SVG and DXF export for laser software
-- Save optimized PNG control images
-- Black threshold, inversion, smoothing and small-part cleanup
-- Automatically connect islands with bridges
-- Adjustable bridge width and maximum bridge length
-- Set final motif width in millimeters
-- Smooth and simplify SVG paths
-- Multilingual interface in German, English, French, Italian and Spanish
-- Selected language is saved and restored on the next start
-- License workflow with installation ID, request and activation
-- Installer with desktop shortcut and uninstaller
-- Integrated help and tooltips for the most important controls
+[Download LaserCut_KonturFix_v2_8_0_multilingual_Setup.exe](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/download/v2.8.0/LaserCut_KonturFix_v2_8_0_multilingual_Setup.exe)
 
-## New in v2.5.0
+[Release notes and details for v2.8.0](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/tag/v2.8.0)
 
-- New **Engraving + outer cut** output mode
-- Engraving remains embedded as a raster image inside the SVG
-- Only the largest closed outer contour is generated as red cut line
-- Second GPT button for engraving motifs with a cuttable frame
-- Renamed **Create cut motif** GPT button for classic cutting motifs
-- Dynamic tooltips for mask creation and SVG export depending on output mode
-- Updated in-app help
-- Nuitka-based application build prepared
+The installer includes a 30-day trial, desktop shortcut, complete offline help and an uninstaller.
 
-## Custom GPT Buttons
+## New in v2.8.0
 
-**Create cut motif** opens a specialized GPT for laser-cuttable cut-out motifs:
+- Local cut-motif prompt generator with material, thickness, dimensions, detail level and optional outer frame
+- Automatic ImageGen guidance for pure black-and-white artwork, minimum feature sizes, fewer islands and bridge-friendly contours
+- Local engraving-motif prompt generator with engraving style, detail level and selectable cut-out shape
+- Material-specific grayscale and contrast guidance for acrylic, wood/MDF, slate, glass, metal and leather
+- Copy-ready prompts for use in the matching specialized ChatGPT assistant
+- Extended HTML help and automated tests for both prompt generators
 
-https://chatgpt.com/g/g-689b206008608191843591bc9d8eec44-laser-cutter-designs-cutting
+The prompt generators do not create images inside the application. They turn the selected technical requirements into an optimized prompt. The motif can optionally be generated in ChatGPT, saved and then loaded back into LaserCut KonturFix.
 
-**Create engraving motif** opens a specialized GPT for engraving images with a cuttable frame:
+## Main features
 
-https://chatgpt.com/g/g-6a220529bf9c81918c19433cccca2c31-create-engraving-motifs
+- Load PNG, JPG, BMP and TIFF files
+- Create cutting motifs from black-and-white masks
+- **Engraving + outer cut** with embedded raster artwork and a separate cut contour
+- Intelligent hierarchy for outer contours, holes and nested shapes
+- Three contour modes: outer only, outer plus holes, or all contours
+- Automatic collision-checked bridges with optional automatic width calculation
+- Place bridges manually and remove individual bridges directly in the preview
+- Automatic per-contour smoothing with configurable limits
+- Three export-quality levels: fast, high up to 3000 pixels, or original resolution
+- Automatic export validation with clear warnings and repair suggestions
+- PNG, SVG and DXF export
+- Undo/redo with up to 20 editing states
+- Save and reopen complete `.lkfproj` project files
+- Interface and offline help in German, English, French, Italian and Spanish
+- Ed25519-signed offline licensing
 
-Both features require at least a free ChatGPT account and an active browser login.
+## Typical workflow
 
-## Workflow for Cut Motifs
+1. Load an image or use one of the local prompt generators to create a suitable ImageGen prompt.
+2. Select **Cut motif** or **Engraving + outer cut**.
+3. Adjust threshold, inversion, smoothing and small-part cleanup.
+4. Generate the mask and contours.
+5. Connect islands automatically and correct bridges manually if necessary.
+6. Set the final width and export quality.
+7. Check the preview and export validation.
+8. Export PNG, SVG or DXF.
 
-1. Load an image or create a cut motif with the GPT button
-2. Select **Cut motif** output mode
-3. Adjust black threshold, smoothing and small-part cleanup
-4. Create the mask
-5. Connect islands if needed
-6. Check the SVG preview
-7. Set the motif width
-8. Save SVG or DXF
+## Contour colors
 
-## Workflow for Engraving Motifs
-
-1. Create an engraving motif with the GPT button or load your own image
-2. Select **Engraving + outer cut**
-3. Create the mask
-4. Check the outer contour in the preview
-5. Save SVG
-6. The SVG can then be opened and nested in NestCheck
-
-## Export Colors
-
-- Red: cut contour
-- Blue: engraving / engraving preview
+- Green: inner cut contours, cut first
+- Red: outer cut contour, cut last
+- Blue: engraving or engraving preview
 - Gray: ignored helper contours
+- Yellow: placed bridges in the preview
 
-In engraving mode, the SVG contains an embedded raster image for engraving and a red outer contour for cutting.
+These colors assist verification. Laser power, speed, focus and the final processing order must still be configured in the target laser software.
 
-## Compatibility
+## Privacy and internet access
 
-LaserCut KonturFix is designed for common laser workflows, including Trotec Ruby, LightBurn, RDWorks, Epilog, xTool and other software that can import SVG or DXF. Because machines may interpret colors and line widths differently, always check the final file in your target laser software before cutting.
-
-## Installation
-
-The Windows installer is named:
-
-```text
-LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe
-```
-
-Direct download:
-
-https://github.com/Stoni66/LaserCut_KonturFix/releases/download/v2_5_0/LaserCut_KonturFix_v2_5_0_multilingual_Setup.exe
-
-After installation, the app can be launched from the desktop shortcut or Start menu. An uninstaller is included.
+Image processing, contour generation, project handling and license validation operate locally. Images and license data are not automatically transmitted to ChatGPT or any other online service. An internet connection and, where required, a ChatGPT login are only needed when an optional ChatGPT link is opened.
 
 ## Licensing
 
-The software can be used during a trial period. A license is required for permanent use. The license area includes name/company, email address, installation ID and license code. The license request can be prepared directly from the app.
+The application can be evaluated for 30 days. A license is required for continued use. Activation works entirely offline and is tied to the installation ID. The customer application contains only the public Ed25519 verification key; private key material is not included in the installer.
 
-## System Requirements
+## Compatibility and system requirements
 
-- Windows 10 or newer
-- 64-bit system recommended
-- Internet connection for the GPT buttons
-- ChatGPT account for the motif GPTs
+- Windows 10 or Windows 11
+- 64-bit system
+- Typical target applications: Trotec Ruby, LightBurn, RDWorks, Epilog, xTool and other software supporting SVG or DXF import
+- Internet access only for the optional ChatGPT functions
+
+Laser systems may interpret colors, line widths and geometry differently. Always inspect every exported file in the target software and perform an initial test using safe machine settings.
 
 ## Author
 
-Designed by Oswald Steiner
+Developed by Oswald Steiner.
