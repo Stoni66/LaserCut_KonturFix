@@ -1,25 +1,23 @@
-# LaserCut KonturFix v2.8.0
+# LaserCut KonturFix v3.1.0
 
 **LaserCut KonturFix** is a multilingual Windows desktop application for preparing bitmap images and AI-generated artwork for laser cutters. It creates clean, smoothed and validated SVG or DXF contours, connects loose islands with bridges when required, and supports engraving images with a separate cuttable outer contour.
 
 ## Download
 
-[Download LaserCut_KonturFix_v2_8_0_multilingual_Setup.exe](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/download/v2.8.0/LaserCut_KonturFix_v2_8_0_multilingual_Setup.exe)
+[Download LaserCut_KonturFix_v3_1_0_multilingual_Setup.exe](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/download/v3.1.0/LaserCut_KonturFix_v3_1_0_multilingual_Setup.exe)
 
-[Release notes and details for v2.8.0](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/tag/v2.8.0)
+[Release notes and details for v3.1.0](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/tag/v3.1.0)
 
 The installer includes a 30-day trial, desktop shortcut, complete offline help and an uninstaller.
 
-## New in v2.8.0
+## New in v3.1.0
 
-- Local cut-motif prompt generator with material, thickness, dimensions, detail level and optional outer frame
-- Automatic ImageGen guidance for pure black-and-white artwork, minimum feature sizes, fewer islands and bridge-friendly contours
-- Local engraving-motif prompt generator with engraving style, detail level and selectable cut-out shape
-- Material-specific grayscale and contrast guidance for acrylic, wood/MDF, slate, glass, metal and leather
-- Copy-ready prompts for use in the matching specialized ChatGPT assistant
-- Extended HTML help and automated tests for both prompt generators
-
-The prompt generators do not create images inside the application. They turn the selected technical requirements into an optimized prompt. The motif can optionally be generated in ChatGPT, saved and then loaded back into LaserCut KonturFix.
+- Seven main groups: From image through mask and bridges to export; NC remains a placeholder.
+- Tolerance-limited Bezier paths: Protected mode up to 0.1 mm; optional stronger smoothing with a targeted second pass.
+- Measurement and original comparison: Maximum contour deviation, node statistics and a cyan preview reference.
+- Optional original contour in DXF: Separate reference layer; explicitly exclude it from laser output.
+- Illustrated quick start: The handball example and updated help in five languages.
+- Familiar tools remain: Motif generators, manual bridges, projects, undo and offline licensing.
 
 ## Main features
 
@@ -80,3 +78,7 @@ Laser systems may interpret colors, line widths and geometry differently. Always
 ## Author
 
 Developed by Oswald Steiner.
+
+## Current help
+
+[Help & quick start](https://stoni66.github.io/LaserCut_KonturFix/help/en/index.html#worked-example)

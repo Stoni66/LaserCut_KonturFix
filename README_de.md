@@ -1,25 +1,23 @@
-# LaserCut KonturFix v2.8.0
+# LaserCut KonturFix v3.1.0
 
 **LaserCut KonturFix** ist eine mehrsprachige Windows-Desktopsoftware zur Vorbereitung von Bildern und KI-Motiven für Lasercutter. Sie erzeugt saubere, geglättete und geprüfte SVG- oder DXF-Konturen, verbindet bei Bedarf lose Inseln mit Brücken und unterstützt Gravurbilder mit einer getrennten schneidbaren Außenkontur.
 
 ## Download
 
-[LaserCut_KonturFix_v2_8_0_multilingual_Setup.exe herunterladen](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/download/v2.8.0/LaserCut_KonturFix_v2_8_0_multilingual_Setup.exe)
+[LaserCut_KonturFix_v3_1_0_multilingual_Setup.exe herunterladen](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/download/v3.1.0/LaserCut_KonturFix_v3_1_0_multilingual_Setup.exe)
 
-[Release-Beschreibung und Details zu v2.8.0](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/tag/v2.8.0)
+[Release-Beschreibung und Details zu v3.1.0](https://github.com/Stoni66/LaserCut_KonturFix-Releases/releases/tag/v3.1.0)
 
 Der Installer enthält eine 30-tägige Testphase, eine Desktop-Verknüpfung, die vollständige Offline-Hilfe und ein Deinstallationsprogramm.
 
-## Neu in v2.8.0
+## Neu in v3.1.0
 
-- Lokaler Promptgenerator für Schnittmotive mit Material, Materialstärke, Abmessungen, Detailgrad und optionalem Außenrahmen
-- Automatische ImageGen-Vorgaben für reine Schwarz-Weiß-Motive, Mindeststrukturen, wenige Inseln und brückenfreundliche Konturen
-- Lokaler Promptgenerator für Gravurmotive mit Gravurstil, Detailgrad und wählbarer Zuschnittform
-- Materialspezifische Graustufen- und Kontrastregeln für Acryl, Holz/MDF, Schiefer, Glas, Metall und Leder
-- Fertige Prompts können kopiert und anschließend im passenden spezialisierten ChatGPT-Assistenten verwendet werden
-- Erweiterte HTML-Hilfe und automatisierte Tests für beide Promptgeneratoren
-
-Die Promptgeneratoren erzeugen keine Bilder innerhalb der Anwendung. Sie erstellen aus den gewählten technischen Vorgaben einen optimierten Prompt. Das eigentliche Motiv wird optional in ChatGPT erzeugt, gespeichert und anschließend wieder in LaserCut KonturFix geladen.
+- Sieben übersichtliche Hauptgruppen: Vom Bild über Maske und Stege zum Export; NC bleibt ein Platzhalter.
+- Toleranzbegrenzte Bézierpfade: Geschützter Modus bis 0,1 mm; optional stärker glätten mit gezieltem zweitem Durchlauf.
+- Messwert und Originalvergleich: Maximale Konturabweichung, Knotenstatistik und cyanfarbene Referenz in der Vorschau.
+- Optionale Originalkontur im DXF: Eigener Referenzlayer; im Laserprogramm ausdrücklich von der Ausgabe ausschließen.
+- Bebilderter Schnellstart: Das Handballspieler-Beispiel und die aktualisierte Hilfe in fünf Sprachen.
+- Vertraute Werkzeuge bleiben: Motivgeneratoren, manuelle Stege, Projekte, Rückgängig und Offline-Lizenzierung.
 
 ## Hauptfunktionen
 
@@ -30,7 +28,7 @@ Die Promptgeneratoren erzeugen keine Bilder innerhalb der Anwendung. Sie erstell
 - Drei Konturmodi: nur außen, außen plus Innenlöcher oder alle Konturen
 - Automatische, kollisionsgeprüfte Brücken mit optional automatisch berechneter Breite
 - Brücken direkt in der Vorschau manuell setzen und gezielt löschen
-- Automatische Glättung pro Kontur mit einstellbaren Grenzwerten
+- Toleranzbegrenzte Béziervereinfachung pro Kontur mit einstellbaren Grenzwerten
 - Drei Exportqualitäten: schnell, hoch bis 3000 Pixel oder Originalauflösung
 - Automatische Exportprüfung mit verständlichen Warnungen und Reparaturvorschlägen
 - PNG-, SVG- und DXF-Export
@@ -80,3 +78,7 @@ Maschinen interpretieren Farben, Linienbreiten und Geometrien unterschiedlich. J
 ## Autor
 
 Entwickelt von Oswald Steiner.
+
+## Aktuelle Hilfe
+
+[Hilfe & Schnellstart](https://stoni66.github.io/LaserCut_KonturFix/help/de/index.html#worked-example)
